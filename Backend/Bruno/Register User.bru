@@ -1,0 +1,24 @@
+meta {
+  name: Register User
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8000/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "firstName": "Gurtrude",
+    "lastName": "Buxton",
+    "email": "Gurtrude.Buxton@email.com",
+    "postcode": "DN5 8AS",
+    "houseNo": "1",
+    "phone": "07000 654321",
+    "role": "user",
+    "password": "password"
+  }
+}
