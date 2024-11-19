@@ -1,5 +1,6 @@
 import React from 'react'
-import Header from "@/components/Header"
+import Header from "@/components/Header" //this is for non authenticated users
+// import Header from "@/components/AuthenticatedHeader" // this is for authenticated users
 import Footer from "@/components/Footer"
 
 interface MainLayoutProps {

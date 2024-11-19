@@ -18,32 +18,97 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
+  CardDescription,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Search, Check, Clock, CalendarRange } from 'lucide-react';
+import { Search, Check, Clock, CalendarRange, ChevronDown, User, Settings, LogOut } from 'lucide-react';
 import Link from "next/link";
 
-const LoginForm = () => (
-  <form className="space-y-4">
-    <div>
-      <label htmlFor="email" className="block mb-2 text-sm font-medium">
-        Email
-      </label>
-      <Input id="email" type="email" placeholder="Enter your email" required />
-    </div>
-    <div>
-      <label htmlFor="password" className="block mb-2 text-sm font-medium">
-        Password
-      </label>
-      <Input id="password" type="password" placeholder="Enter your password" required />
-    </div>
-    <Button type="submit" className="w-full">Login</Button>
-  </form>
-);
+const ForgotPasswordForm = ({ onBack }) => {
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // password reset logic here
+    console.log('Reset password for:', email);
+    // we can add an extension to this form to show a success message
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="reset-email" className="block mb-2 text-sm font-medium">
+          Email Address
+        </label>
+        <Input 
+          id="reset-email" 
+          type="email" 
+          placeholder="Enter your email" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required 
+        />
+      </div>
+      <div className="flex space-x-4">
+        <Button type="button" variant="outline" onClick={onBack} className="w-full">
+          Back to Login
+        </Button>
+        <Button type="submit" className="w-full">
+          Reset Password
+        </Button>
+      </div>
+    </form>
+  );
+};
+
+const LoginForm = ({ onLoginSuccess }) => {
+  const [isResetPassword, setIsResetPassword] = useState(false);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    onLoginSuccess('John Doe'); // replace with actual user data
+  };
+
+  if (isResetPassword) {
+    return <ForgotPasswordForm onBack={() => setIsResetPassword(false)} />;
+  }
+
+  return (
+    <form onSubmit={handleLogin} className="space-y-4">
+      <div>
+        <label htmlFor="email" className="block mb-2 text-sm font-medium">
+          Email
+        </label>
+        <Input id="email" type="email" placeholder="Enter your email" required />
+      </div>
+      <div>
+        <label htmlFor="password" className="block mb-2 text-sm font-medium">
+          Password
+        </label>
+        <Input id="password" type="password" placeholder="Enter your password" required />
+      </div>
+      <div className="text-right">
+        <Button 
+          type="button" 
+          variant="link" 
+          onClick={() => setIsResetPassword(true)}
+        >
+          Forgot Password?
+        </Button>
+      </div>
+      <Button type="submit" className="w-full">Login</Button>
+    </form>
+  );
+};
 
 const SubscriptionCard = ({ type, price, savings, features, value, selected, onChange }) => (
   <Card className={`relative transition-all duration-200 ${
@@ -326,7 +391,7 @@ const Header = () => {
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
             <TabsContent value="login" className="mt-4">
-              <LoginForm />
+              <LoginForm onLoginSuccess={(user) => console.log('Logged in as:', user)} />
             </TabsContent>
             <TabsContent value="signup" className="mt-4">
               <SignupForm />
