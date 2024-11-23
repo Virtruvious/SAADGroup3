@@ -1,0 +1,18 @@
+meta {
+  name: Login User
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8000/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "Gurtrude.Buxton@email.com",
+    "password": "password"
+  }
+}

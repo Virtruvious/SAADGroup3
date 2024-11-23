@@ -6,10 +6,10 @@ function generateAccessToken(param){
 }
 
 exports.checkPassword = (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (username && password) {
-    auth.checkPassword(username, password, (err, data) => {
+  if (email && password) {
+    auth.checkPassword(email, password, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(401).send({
@@ -21,34 +21,43 @@ exports.checkPassword = (req, res) => {
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving User with username " + username,
+            message: "Error retrieving User with email " + email,
           });
         }
       } else {
         // Success, send user data and token
-        const token = generateAccessToken({ id: data.id, username: data.username });
+        const token = generateAccessToken({ id: data.user_id, email: data.email, role: data.role });
         const successfulRes = {
           user: {
-            id: data.id,
-            name: data.username,
+            id: data.user_id,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            email: data.email,
+            role: data.role,
+            subscription: {
+              type: data.subscription_type,
+              start_date: data.start_date,
+              end_date: data.end_date,
+            }
           },
           token: token,
         };
+        console.log("Logged in user: ", successfulRes.user);
         res.status(200).send(successfulRes);
       }
     });
   } else {
     res.status(400).send({
-      message: "Username and password cannot be empty",
+      message: "Email and password cannot be empty",
     });
   }
 };
 
 exports.registerUser = (req, res) => {
-  const { firstName, lastName, email, postcode, houseNo, phone, role, password} = req.body;
+  const { firstName, lastName, email, postcode, houseNo, phone, role, password, subscriptionType} = req.body;
 
-  if (firstName && lastName && email && postcode && houseNo && phone && role && password) {
-    auth.registerUser(firstName, lastName, email, postcode, houseNo, phone, role, password, (err, data) => {
+  if (firstName && lastName && email && postcode && houseNo && phone && role && password && subscriptionType) {
+    auth.registerUser(firstName, lastName, email, postcode, houseNo, phone, role, password, subscriptionType, (err, data) => {
       if (err) {
         if (err.kind === "duplicate") {
           res.status(409).send({

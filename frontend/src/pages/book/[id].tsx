@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 
 const BookDetail: React.FC = () => {
-  const router = useRouter()
-  const { id } = router.query
+  // const router = useRouter()
+  // const { id } = router.query
 
   //replace with actual API call in production
   const bookData = {

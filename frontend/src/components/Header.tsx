@@ -30,98 +30,45 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Search, Check, Clock, CalendarRange, ChevronDown, User, Settings, LogOut } from 'lucide-react';
+import {
+  Search,
+  Check,
+  Clock,
+  CalendarRange,
+  ChevronDown,
+  User,
+  Settings,
+  LogOut,
+} from "lucide-react";
 import Link from "next/link";
+import { Login } from "./Login";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
-const ForgotPasswordForm = ({ onBack }) => {
-  const [email, setEmail] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // password reset logic here
-    console.log('Reset password for:', email);
-    // we can add an extension to this form to show a success message
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="reset-email" className="block mb-2 text-sm font-medium">
-          Email Address
-        </label>
-        <Input 
-          id="reset-email" 
-          type="email" 
-          placeholder="Enter your email" 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required 
-        />
-      </div>
-      <div className="flex space-x-4">
-        <Button type="button" variant="outline" onClick={onBack} className="w-full">
-          Back to Login
-        </Button>
-        <Button type="submit" className="w-full">
-          Reset Password
-        </Button>
-      </div>
-    </form>
-  );
-};
-
-const LoginForm = ({ onLoginSuccess }) => {
-  const [isResetPassword, setIsResetPassword] = useState(false);
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    onLoginSuccess('John Doe'); // replace with actual user data
-  };
-
-  if (isResetPassword) {
-    return <ForgotPasswordForm onBack={() => setIsResetPassword(false)} />;
-  }
-
-  return (
-    <form onSubmit={handleLogin} className="space-y-4">
-      <div>
-        <label htmlFor="email" className="block mb-2 text-sm font-medium">
-          Email
-        </label>
-        <Input id="email" type="email" placeholder="Enter your email" required />
-      </div>
-      <div>
-        <label htmlFor="password" className="block mb-2 text-sm font-medium">
-          Password
-        </label>
-        <Input id="password" type="password" placeholder="Enter your password" required />
-      </div>
-      <div className="text-right">
-        <Button 
-          type="button" 
-          variant="link" 
-          onClick={() => setIsResetPassword(true)}
-        >
-          Forgot Password?
-        </Button>
-      </div>
-      <Button type="submit" className="w-full">Login</Button>
-    </form>
-  );
-};
-
-const SubscriptionCard = ({ type, price, savings, features, value, selected, onChange }) => (
-  <Card className={`relative transition-all duration-200 ${
-    selected === value 
-      ? 'border-2 border-primary shadow-lg' 
-      : 'hover:border-primary/50 hover:shadow-md'
-  }`}>
+const SubscriptionCard = ({
+  type,
+  price,
+  savings,
+  features,
+  value,
+  selected,
+  onChange,
+}: any) => (
+  <Card
+    className={`relative transition-all duration-200 ${
+      selected === value
+        ? "border-2 border-primary shadow-lg"
+        : "hover:border-primary/50 hover:shadow-md"
+    }`}
+  >
     <CardHeader className="pb-3">
       <div className="flex items-start justify-between">
         <div className="flex items-center space-x-2">
           <RadioGroupItem value={value} id={value} />
           <Label htmlFor={value} className="cursor-pointer">
-            <CardTitle className={`text-lg ${selected === value ? 'text-primary' : ''}`}>
+            <CardTitle
+              className={`text-lg ${selected === value ? "text-primary" : ""}`}
+            >
               {type}
             </CardTitle>
             <CardDescription className="text-sm mt-1">
@@ -129,7 +76,7 @@ const SubscriptionCard = ({ type, price, savings, features, value, selected, onC
             </CardDescription>
           </Label>
         </div>
-        {type === 'Annual Membership' && (
+        {type === "Annual Membership" && (
           <span className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
             Best Value
           </span>
@@ -141,12 +88,12 @@ const SubscriptionCard = ({ type, price, savings, features, value, selected, onC
         <div>
           <span className="text-3xl font-bold">{price}</span>
           <span className="text-muted-foreground ml-1 text-sm">
-            {value === 'annual' ? '/year' : '/month'}
+            {value === "annual" ? "/year" : "/month"}
           </span>
         </div>
-        
+
         <div className="space-y-2">
-          {features.map((feature, index) => (
+          {features.map((feature: any, index: any) => (
             <div key={index} className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-primary" />
               <span className="text-sm text-muted-foreground">{feature}</span>
@@ -158,10 +105,10 @@ const SubscriptionCard = ({ type, price, savings, features, value, selected, onC
   </Card>
 );
 
-const SubscriptionSelection = ({ onSubscriptionSelect }) => {
+const SubscriptionSelection = ({ onSubscriptionSelect }: any) => {
   const [selected, setSelected] = useState(null);
 
-  const handleSelect = (value) => {
+  const handleSelect = (value: any) => {
     setSelected(value);
     onSubscriptionSelect(value);
   };
@@ -174,7 +121,7 @@ const SubscriptionSelection = ({ onSubscriptionSelect }) => {
           Select the plan that works best for you. Switch or cancel anytime.
         </p>
       </div>
-      
+
       <RadioGroup onValueChange={handleSelect} className="space-y-4">
         <SubscriptionCard
           type="Annual Membership"
@@ -187,7 +134,7 @@ const SubscriptionSelection = ({ onSubscriptionSelect }) => {
             "Unlimited library access",
             "Priority booking for events",
             "Special member discounts",
-            "Free home delivery service"
+            "Free home delivery service",
           ]}
           icon={CalendarRange}
         />
@@ -203,7 +150,7 @@ const SubscriptionSelection = ({ onSubscriptionSelect }) => {
             "Unlimited library access",
             "Member discounts",
             "Access to all facilities",
-            "Cancel anytime"
+            "Cancel anytime",
           ]}
           icon={Clock}
         />
@@ -211,11 +158,11 @@ const SubscriptionSelection = ({ onSubscriptionSelect }) => {
 
       {selected && (
         <div className="pt-4">
-          <Button 
+          <Button
             onClick={() => onSubscriptionSelect(selected)}
             className="w-full"
           >
-            Continue with {selected === 'annual' ? 'Annual' : 'Monthly'} Plan
+            Continue with {selected === "annual" ? "Annual" : "Monthly"} Plan
           </Button>
         </div>
       )}
@@ -223,12 +170,13 @@ const SubscriptionSelection = ({ onSubscriptionSelect }) => {
   );
 };
 
-const PersonalInfoForm = ({ selectedPlan, onBack }) => (
+const PersonalInfoForm = ({ selectedPlan, onBack }: any) => (
   <form className="space-y-4">
     <div className="text-center mb-6">
       <h3 className="text-lg font-medium">Complete your registration</h3>
       <p className="text-sm text-muted-foreground">
-        Selected plan: {selectedPlan === 'annual' ? 'Annual' : 'Monthly'} Membership
+        Selected plan: {selectedPlan === "annual" ? "Annual" : "Monthly"}{" "}
+        Membership
       </p>
     </div>
 
@@ -272,7 +220,12 @@ const PersonalInfoForm = ({ selectedPlan, onBack }) => (
         <label htmlFor="houseNumber" className="block mb-2 text-sm font-medium">
           House Number
         </label>
-        <Input id="houseNumber" type="text" placeholder="House number" required />
+        <Input
+          id="houseNumber"
+          type="text"
+          placeholder="House number"
+          required
+        />
       </div>
     </div>
 
@@ -280,11 +233,21 @@ const PersonalInfoForm = ({ selectedPlan, onBack }) => (
       <label htmlFor="password" className="block mb-2 text-sm font-medium">
         Password
       </label>
-      <Input id="password" type="password" placeholder="Create password" required />
+      <Input
+        id="password"
+        type="password"
+        placeholder="Create password"
+        required
+      />
     </div>
 
     <div className="flex space-x-4">
-      <Button type="button" variant="outline" onClick={onBack} className="w-full">
+      <Button
+        type="button"
+        variant="outline"
+        onClick={onBack}
+        className="w-full"
+      >
         Back
       </Button>
       <Button type="submit" className="w-full">
@@ -295,22 +258,24 @@ const PersonalInfoForm = ({ selectedPlan, onBack }) => (
 );
 
 const SignupForm = () => {
-  const [step, setStep] = useState('subscription');
+  const [step, setStep] = useState("subscription");
   const [selectedPlan, setSelectedPlan] = useState(null);
 
-  const handleSubscriptionSelect = (plan) => {
+  const handleSubscriptionSelect = (plan: any) => {
     setSelectedPlan(plan);
-    setStep('personal-info');
+    setStep("personal-info");
   };
 
   return (
     <div className="space-y-4">
-      {step === 'subscription' ? (
-        <SubscriptionSelection onSubscriptionSelect={handleSubscriptionSelect} />
+      {step === "subscription" ? (
+        <SubscriptionSelection
+          onSubscriptionSelect={handleSubscriptionSelect}
+        />
       ) : (
-        <PersonalInfoForm 
-          selectedPlan={selectedPlan} 
-          onBack={() => setStep('subscription')} 
+        <PersonalInfoForm
+          selectedPlan={selectedPlan}
+          onBack={() => setStep("subscription")}
         />
       )}
     </div>
@@ -318,7 +283,18 @@ const SignupForm = () => {
 };
 
 const Header = () => {
+  const { data: session, status } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Log session status and data for debugging
+  useEffect(() => {
+    console.log("Session status:", status); // To see status of the session
+    console.log("Session data:", session); // To check session data
+  }, [status, session]); // Runs every time the session or status changes
+
+  if (status === "loading") {
+    return <div>Loading...</div>; // or any other loading state
+  }
 
   return (
     <header className="w-full border-b">
@@ -328,7 +304,9 @@ const Header = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>House & Location</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>
+                    House & Location
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="p-4">
                       <p>Location content here</p>
@@ -340,7 +318,15 @@ const Header = () => {
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="ghost">Help</Button>
-            <Button onClick={() => setIsModalOpen(true)}>Login / Register</Button>
+            {session ? (
+              <div className="bg-black rounded-lg text-white p-2 px-2.5 font-semibold">
+                {session.user?.firstName[0] + session.user?.lastName[0]}
+              </div>
+            ) : (
+              <Button onClick={() => setIsModalOpen(true)}>
+                Login / Register
+              </Button>
+            )}
           </div>
         </div>
 
@@ -381,7 +367,7 @@ const Header = () => {
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-      <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Account Access</DialogTitle>
           </DialogHeader>
@@ -391,7 +377,7 @@ const Header = () => {
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
             <TabsContent value="login" className="mt-4">
-              <LoginForm onLoginSuccess={(user) => console.log('Logged in as:', user)} />
+              <Login />
             </TabsContent>
             <TabsContent value="signup" className="mt-4">
               <SignupForm />

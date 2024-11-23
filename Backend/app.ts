@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 });
 
 require('./Routes/auth.routes')(app);
+require('./Routes/books.routes')(app);
 
 const port = 8000;
 app.listen(port, () => {
