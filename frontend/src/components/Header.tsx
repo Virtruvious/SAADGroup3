@@ -47,7 +47,6 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { signIn } from "next-auth/react";
 
-
 const Header = () => {
   const { data: session, status } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -84,15 +83,9 @@ const Header = () => {
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="ghost">Help</Button>
-            {session ? (
-              <div className="bg-black rounded-lg text-white p-2 px-2.5 font-semibold">
-                {session.user?.firstName[0] + session.user?.lastName[0]}
-              </div>
-            ) : (
-              <Button onClick={() => setIsModalOpen(true)}>
-                Login / Register
-              </Button>
-            )}
+            <Button onClick={() => setIsModalOpen(true)}>
+              Login / Register
+            </Button>
           </div>
         </div>
 

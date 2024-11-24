@@ -32,11 +32,32 @@ User.checkPassword = (email, password, result) => {
     });
 };
 
+User.checkEmail = (email) => {
+  pool
+    .execute("SELECT * FROM user WHERE email = ?;", [email])
+    .then(([rows]) => {
+      if (rows.length == 1) {
+        return rows[0]; // Email already exists
+      } else {
+        return null; // Email does not exist
+      }
+    })
+    .catch((err) => {
+      console.error("Error: ", err);
+    });
+}
+
 User.registerUser = (firstName, lastName, email, postcode, houseNo, phone, role, password, subscriptionType, result) => {
   // Create Subscription
   const currentDate = new Date();
   let endDate = new Date();
   let subscriptionID;
+
+  if (User.checkEmail(email) !== null) {
+    // Email already exists
+    result({ kind: "duplicate" }, null);
+    return;
+  }
 
   if (subscriptionType === "monthly") {
     endDate.setMonth(currentDate.getMonth() + 1);

@@ -54,7 +54,6 @@ exports.checkPassword = (req, res) => {
 };
 
 exports.registerUser = (req, res) => {
-  console.log("Registering user data: ", req.body);
   const { firstName, lastName, email, postcode, houseNo, phone, role, password, subscriptionType} = req.body;
 
   if (firstName && lastName && email && postcode && houseNo && phone && role && password && subscriptionType) {
@@ -62,7 +61,7 @@ exports.registerUser = (req, res) => {
       if (err) {
         if (err.kind === "duplicate") {
           res.status(409).send({
-            message: "User ID Already Exists",
+            message: "Email Already Exists",
           });
         } else {
           res.status(500).send({
@@ -71,6 +70,7 @@ exports.registerUser = (req, res) => {
           console.log(err);
         }
       } else {
+        console.log("Registering user data: ", req.body);
         res.status(201).send({
           message: "User Created Successfully (id: " + data.insertId + ")",
         });

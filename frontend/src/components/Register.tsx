@@ -155,25 +155,31 @@ const PersonalInfoForm = ({ selectedPlan, onBack }: any) => {
       email: formData.get("email"),
       phone: formData.get("phone"),
       postcode: formData.get("postcode"),
-      houseNo: formData.get("houseNumber"),  // Changed to match backend expectation
+      houseNo: formData.get("houseNumber"), // Changed to match backend expectation
       password: formData.get("password"),
       role: "user",
-      subscriptionType: selectedPlan
+      subscriptionType: selectedPlan,
     };
 
     try {
-      const registerResponse = await fetch("http://localhost:8000/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const registerResponse = await fetch(
+        "http://localhost:8000/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       const responseData = await registerResponse.json();
       console.log("Register response data:", responseData);
 
-      if (!registerResponse.ok) {
+      if (registerResponse.status === 409) {
+        setError(responseData.message || "Email already exists");
+        return;
+      } else if (!registerResponse.ok) {
         throw new Error(responseData.message || "Failed to register user");
       }
 
@@ -185,12 +191,13 @@ const PersonalInfoForm = ({ selectedPlan, onBack }: any) => {
       });
 
       if (loginResponse?.error) {
-        throw new Error(loginResponse.error || "Failed to login after registration");
+        throw new Error(
+          loginResponse.error || "Failed to login after registration"
+        );
       }
 
       // refresh page after successful login
       window.location.reload();
-      
     } catch (error: any) {
       console.error("Registration/Login error:", error);
       setError(error.message || "An unexpected error occurred");
@@ -202,7 +209,22 @@ const PersonalInfoForm = ({ selectedPlan, onBack }: any) => {
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       {error && (
-        <div className="p-3 text-sm text-red-500 bg-red-50 rounded-md">
+        <div className="flex flex-row gap-x-2 items-center p-3 text-sm text-red-500 bg-red-50 rounded-md font-semibold">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+            />
+          </svg>
+
           {error}
         </div>
       )}
@@ -220,13 +242,25 @@ const PersonalInfoForm = ({ selectedPlan, onBack }: any) => {
           <label htmlFor="firstName" className="block mb-2 text-sm font-medium">
             First Name
           </label>
-          <Input id="firstName" name="firstName" type="text" placeholder="First name" required />
+          <Input
+            id="firstName"
+            name="firstName"
+            type="text"
+            placeholder="First name"
+            required
+          />
         </div>
         <div>
           <label htmlFor="lastName" className="block mb-2 text-sm font-medium">
             Last Name
           </label>
-          <Input id="lastName" name="lastName" type="text" placeholder="Last name" required />
+          <Input
+            id="lastName"
+            name="lastName"
+            type="text"
+            placeholder="Last name"
+            required
+          />
         </div>
       </div>
 
@@ -234,14 +268,26 @@ const PersonalInfoForm = ({ selectedPlan, onBack }: any) => {
         <label htmlFor="email" className="block mb-2 text-sm font-medium">
           Email
         </label>
-        <Input id="email" name="email" type="email" placeholder="Email address" required />
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Email address"
+          required
+        />
       </div>
 
       <div>
         <label htmlFor="phone" className="block mb-2 text-sm font-medium">
           Phone Number
         </label>
-        <Input id="phone" name="phone" type="tel" placeholder="Phone number" required />
+        <Input
+          id="phone"
+          name="phone"
+          type="tel"
+          placeholder="Phone number"
+          required
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
@@ -249,10 +295,19 @@ const PersonalInfoForm = ({ selectedPlan, onBack }: any) => {
           <label htmlFor="postcode" className="block mb-2 text-sm font-medium">
             Postcode
           </label>
-          <Input id="postcode" name="postcode" type="text" placeholder="Postcode" required />
+          <Input
+            id="postcode"
+            name="postcode"
+            type="text"
+            placeholder="Postcode"
+            required
+          />
         </div>
         <div>
-          <label htmlFor="houseNumber" className="block mb-2 text-sm font-medium">
+          <label
+            htmlFor="houseNumber"
+            className="block mb-2 text-sm font-medium"
+          >
             House Number
           </label>
           <Input
