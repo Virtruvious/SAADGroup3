@@ -31,3 +31,20 @@ exports.getRandomBooks = (req, res) => {
     }
   });
 };
+
+exports.getBookInfo = (req, res) => {
+  const bookId = req.params.bookId;
+  books.getBookInfo(bookId, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: "Error Fetching Book Info",
+      });
+      console.log(err);
+    } else {
+      const successfulRes = {
+        book: data,
+      };
+      res.status(200).send(successfulRes);
+    }
+  });
+};

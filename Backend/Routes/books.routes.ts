@@ -7,6 +7,7 @@ module.exports = (app) => {
 
     router.get('/newBooks', book.getNewBooks);
     router.get('/random', book.getRandomBooks);
+    router.get('/:bookId', book.getBookInfo);
 
     app.use('/books', router);
 };

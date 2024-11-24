@@ -29,4 +29,16 @@ Book.getRandomBooks = (result) => {
     });
 }
 
+Book.getBookInfo = (bookId, result) => {
+  pool
+    .execute("SELECT * FROM media WHERE media_id = ?;", [bookId])
+    .then(([rows]) => {
+      result(null, rows);
+    })
+    .catch((err) => {
+      console.error("Error: ", err);
+      result(err, null);
+    });
+}
+
 module.exports = Book;
