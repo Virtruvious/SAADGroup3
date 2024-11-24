@@ -54,6 +54,7 @@ exports.checkPassword = (req, res) => {
 };
 
 exports.registerUser = (req, res) => {
+  console.log("Registering user data: ", req.body);
   const { firstName, lastName, email, postcode, houseNo, phone, role, password, subscriptionType} = req.body;
 
   if (firstName && lastName && email && postcode && houseNo && phone && role && password && subscriptionType) {

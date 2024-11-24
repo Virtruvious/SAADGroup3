@@ -37,6 +37,7 @@ export const authOptions: AuthOptions = {
             }
           );
 
+
           if (res && res.status === 200) {
             // Construct user object based on response data
             const user = {

@@ -16,8 +16,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Search, User, Settings, LogOut, ChevronDown } from 'lucide-react';
 import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
 
 const AuthenticatedHeader = () => {
+  const { data: session } = useSession();
+
+  const displayName = session?.user?.firstName 
+    ? `${session.user.firstName} ${session.user.lastName}`
+    : session?.user?.name 
+    ?? session?.user?.email
+    ?? "User";
+
   return (
     <header className="w-full border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,7 +50,7 @@ const AuthenticatedHeader = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
-                  John Doe <ChevronDown className="ml-2 h-4 w-4" />
+                  {displayName} <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -51,8 +60,8 @@ const AuthenticatedHeader = () => {
                 <DropdownMenuItem>
                   <Settings className="mr-2 h-4 w-4" /> Orders
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <LogOut className="mr-2 h-4 w-4" /> Logout
+                <DropdownMenuItem onClick={() => signOut()}>
+                  <LogOut className="mr-2 h-4 w-4" color="#Ff0000"/> Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

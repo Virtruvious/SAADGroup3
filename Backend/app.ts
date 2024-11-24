@@ -1,19 +1,26 @@
 const express = require('express');
 const session = require('express-session');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const authController = require('./Controllers/auth.controller');
 
 const app = express();
 
+//allows requests from the frontend
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: "elanco-activity-monitor",
     resave: false,
     saveUninitialized: true
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.json({ message: 'Welcome to the AML API' });
 });
+
+app.post('/auth/register', authController.registerUser);
 
 require('./Routes/auth.routes')(app);
 require('./Routes/books.routes')(app);
