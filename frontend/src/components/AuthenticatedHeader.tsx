@@ -55,10 +55,14 @@ const AuthenticatedHeader = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" /> Manage Account
+                <Link href="Account">
+                  <User className="mr-2 h-5 w-5" />Account
+                </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" /> Orders
+                <Link href="Orders"> 
+                  <Settings className="mr-2 h-5 w-5" />Orders
+                </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => signOut()}>
                   <LogOut className="mr-2 h-4 w-4" color="#Ff0000"/> Logout
