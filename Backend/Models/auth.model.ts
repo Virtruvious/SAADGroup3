@@ -32,28 +32,32 @@ User.checkPassword = (email, password, result) => {
     });
 };
 
-User.checkEmail = (email) => {
-  pool
+User.checkEmail = (email: string): Promise<boolean> => {
+  console.log("Checking email: ", email);
+  return pool
     .execute("SELECT * FROM user WHERE email = ?;", [email])
     .then(([rows]) => {
       if (rows.length == 1) {
-        return rows[0]; // Email already exists
+        console.log("Email exists: ", rows[0].email);
+        return true; // Email exists
       } else {
-        return null; // Email does not exist
+        console.log("Email does not exist: ", email);
+        return false; // Email does not exist
       }
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       console.error("Error: ", err);
+      return false; // Handle error by returning false
     });
 }
 
-User.registerUser = (firstName, lastName, email, postcode, houseNo, phone, role, password, subscriptionType, result) => {
+User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone, role, password, subscriptionType, result) => {
   // Create Subscription
   const currentDate = new Date();
   let endDate = new Date();
   let subscriptionID;
 
-  if (User.checkEmail(email) !== null) {
+  if (await User.checkEmail(email)) {
     // Email already exists
     result({ kind: "duplicate" }, null);
     return;
