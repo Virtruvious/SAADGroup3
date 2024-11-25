@@ -11,7 +11,7 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
-    secret: "elanco-activity-monitor",
+    secret: "aml-library-secret-Dn$!q%tynv9ji8$9mF",
     resave: false,
     saveUninitialized: true
 }));

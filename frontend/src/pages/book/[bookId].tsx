@@ -105,7 +105,7 @@ const BookDetail: React.FC = () => {
           {/* right coulnm - details */}
           <div className="space-y-6">
             <h1 className="text-3xl font-bold">{bookDetails.title}</h1>
-            <p className="text-2xl font-semibold text-blue-600">£{bookDetails.price}</p>
+            <p className="text-2xl font-semibold text-blue-600">£{bookDetails.price.substring(0, 5)}</p>
             
             <div className="space-y-4">
               <h2 className="text-xl font-semibold text-blue-600">
