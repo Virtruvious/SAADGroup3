@@ -14,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Search, User, Settings, LogOut, ChevronDown } from 'lucide-react';
+import { Search, User, Settings, LogOut, ChevronDown, ReceiptText , Sparkles  } from 'lucide-react';
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 
@@ -56,12 +56,17 @@ const AuthenticatedHeader = () => {
               <DropdownMenuContent>
                 <DropdownMenuItem>
                 <Link href="Account">
-                  <User className="mr-2 h-5 w-5" />Account
+                  <User className="mr-2 h-4 w-4" />Account
                 </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                 <Link href="Orders"> 
-                  <Settings className="mr-2 h-5 w-5" />Orders
+                  <ReceiptText className="mr-2 h-4 w-4" />Orders
+                </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                <Link href="WishList"> 
+                  <Sparkles className="mr-2 h-4 w-4" />Wish List
                 </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => signOut()}>

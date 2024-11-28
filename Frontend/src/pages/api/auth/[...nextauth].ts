@@ -45,6 +45,7 @@ export const authOptions: AuthOptions = {
               firstName: res.data.user.firstName,
               lastName: res.data.user.lastName,
               role: res.data.user.role,
+              email: res.data.user.email,
               subscription: {
                 type: res.data.user.subscription.type,
                 start_date: res.data.user.subscription.start_date,

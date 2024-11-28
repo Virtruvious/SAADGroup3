@@ -8,7 +8,13 @@ const app = express();
 
 //allows requests from the frontend
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-app.use(express.json());
+app.use(express.json({ 
+    verify: (req, res, buf) => {
+        if (req.method === 'GET') {
+            req.body = {};
+        }
+    }
+}));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: "aml-library-secret-Dn$!q%tynv9ji8$9mF",
@@ -24,6 +30,7 @@ app.post('/auth/register', authController.registerUser);
 
 require('./Routes/auth.routes')(app);
 require('./Routes/books.routes')(app);
+require('./Routes/wishList.routes')(app);
 
 const port = 8000;
 app.listen(port, () => {
