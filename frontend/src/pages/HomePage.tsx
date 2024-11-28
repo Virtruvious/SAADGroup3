@@ -57,7 +57,6 @@ const Homepage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {books.map((book, index) => {
           const bookId = book.media_id;
-          console.log(bookId);
           return (
             <Link
               href={`/book/${bookId}`}

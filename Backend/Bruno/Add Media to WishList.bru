@@ -4,8 +4,16 @@ meta {
   seq: 7
 }
 
-get {
-  url: 
+post {
+  url: http://localhost:8000/wishlist/addMedia?ID=29
   body: none
-  auth: none
+  auth: bearer
+}
+
+params:query {
+  ID: 29
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJHdXJ0cnVkZS5CdXh0b25AZW1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MzI4MTk1NjEsImV4cCI6MTczMjgyMTM2MX0.AMgN7kxzIQzHfujwv3apIuv0FkZAPwKo1iapWDCu8_w
 }
