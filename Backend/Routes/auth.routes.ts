@@ -6,6 +6,7 @@ module.exports = (app) => {
     router.use(express.json());
 
     router.post('/login', login.checkPassword);
+    router.post('/staff/login', login.checkPasswordStaff);
     router.post('/register', login.registerUser);
 
     app.use('/auth', router);

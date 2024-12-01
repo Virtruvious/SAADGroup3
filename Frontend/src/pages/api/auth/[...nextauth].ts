@@ -1,12 +1,12 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 export const authOptions: AuthOptions = {
   debug: true, // Enables debugging information in logs
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "User Credentials", // User login provider
       credentials: {
         email: {
           label: "Email",
@@ -25,7 +25,7 @@ export const authOptions: AuthOptions = {
 
         try {
           const res = await axios.post(
-            "http://localhost:8000/auth/login",
+            "http://localhost:8000/auth/login", // Your API endpoint for login
             {
               email: credentials.email,
               password: credentials.password,
@@ -37,9 +37,7 @@ export const authOptions: AuthOptions = {
             }
           );
 
-
           if (res && res.status === 200) {
-            // Construct user object based on response data
             const user = {
               id: res.data.user.id,
               firstName: res.data.user.firstName,
@@ -51,39 +49,97 @@ export const authOptions: AuthOptions = {
                 start_date: res.data.user.subscription.start_date,
                 end_date: res.data.user.subscription.end_date,
               },
-              jwt: res.data.token, // Store the JWT for session management
+              jwt: res.data.token,
             };
             console.log("Logged in user:", user);
-            return user; // Return user object to NextAuth
+            return user;
           }
         } catch (error) {
-          if (axios.isAxiosError(error)) {
-            if (error.response?.status === 401) {
-              console.warn("Unauthorized: Invalid credentials");
-              return null; // Invalid credentials
-            }
-            console.error(
-              "Error during authorization:",
-              error.response?.data || error.message
-            );
-          } else {
-            console.error("Unexpected error:", error);
-          }
+          console.error("Error during user authorization:", error);
         }
 
-        return null; // Return null if login fails for any reason
+        return null;
+      },
+    }),
+    CredentialsProvider({
+      id: "staff-credentials", // Staff login provider
+      name: "Staff Credentials",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "text",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+        },
+      },
+      async authorize(credentials) {
+        if (!credentials) {
+          console.error("No staff credentials provided");
+          return null;
+        }
+
+        try {
+          const res = await axios.post(
+            "http://localhost:8000/auth/staff/login", 
+            {
+              email: credentials.email,
+              password: credentials.password,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (res && res.status === 200) {
+            const user = {
+              id: res.data.user.id,
+              firstName: res.data.user.firstName,
+              lastName: res.data.user.lastName,
+              role: res.data.user.role,
+              email: res.data.user.email,
+              jwt: res.data.token,
+            };
+
+            // Check if the role is 'staff', otherwise reject
+            if (user.role !== "staff") {
+              console.error("Unauthorized role for staff login");
+              return null; // Reject non-staff users
+            }
+
+            if(user.email.includes("AC"))
+            {
+              user.role = "accountant";
+            }
+            else if(user.email.includes("PM"))
+            {
+              user.role = "purchase_manager";
+            }
+
+            console.log("Logged in staff:", user);
+            return user;
+          }
+        } catch (error) {
+          console.error("Error during staff authorization:", error);
+        }
+
+        return null;
       },
     }),
   ],
+  
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.role = user.role;
         token.firstName = user.firstName;
         token.lastName = user.lastName;
         token.email = user.email;
-        token.role = user.role;
-        token.jwt = user.jwt; // Include the JWT in the token for persistence
+        token.jwt = user.jwt; // Store JWT
       }
       return token;
     },
@@ -96,11 +152,10 @@ export const authOptions: AuthOptions = {
           email: token.email,
           role: token.role,
         };
-        session.jwt = token.jwt; // Include JWT in session data
+        session.jwt = token.jwt; // Store JWT in session
       }
       return session;
-    }
-    
+    },
   },
 
   session: {
@@ -111,9 +166,8 @@ export const authOptions: AuthOptions = {
     maxAge: 30 * 60, // 30 minutes
   },
   pages: {
-    signIn: "/login",
+    signIn: "/login", 
   },
 };
 
-// Export the NextAuth handler as the default export
 export default NextAuth(authOptions);

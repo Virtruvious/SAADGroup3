@@ -32,6 +32,32 @@ User.checkPassword = (email, password, result) => {
     });
 };
 
+User.checkPasswordStaff = (email, password, result) => {
+  pool
+    .execute("SELECT * FROM user INNER JOIN subscription ON user.subscription_id = subscription.subscription_id WHERE user.email = ? and role = 'staff';", [email])
+    .then(([rows]) => {
+      if (rows.length == 1) {
+        // To be used when password is hashed
+        bcrypt.compare(password, rows[0].password, (err, res) => {
+          if (res) {
+            // console.log("Found user: ", rows[0]);
+            result(null, rows[0]);
+          } else {
+            // Invalid password
+            result({ kind: "invalid_password" }, null);
+          }
+        });
+      } else {
+        // Not found User with the username
+        result({ kind: "not_found" }, null);
+      }
+    })
+    .catch((err) => {
+      console.error("Error: ", err);
+      result(err, null);
+    });
+};
+
 User.checkEmail = (email: string): Promise<boolean> => {
   console.log("Checking email: ", email);
   return pool
@@ -62,7 +88,7 @@ User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone,
     result({ kind: "duplicate" }, null);
     return;
   }
-
+  if(role == "user"){
   if (subscriptionType === "monthly") {
     endDate.setMonth(currentDate.getMonth() + 1);
   } else if (subscriptionType === "annual") {
@@ -89,6 +115,10 @@ User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone,
       result(err, null);
     }
   });
+}
+else if(role == "staff"){
+  subscriptionID = -1;
+}
 
   // Create User with hashed password
   let saltRounds = 10;
@@ -121,6 +151,5 @@ User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone,
   });
 };
 
-User.Reset
 
 module.exports = User;

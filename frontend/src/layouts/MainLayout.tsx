@@ -1,4 +1,5 @@
 import React from 'react'
+import { usePathname } from 'next/navigation'
 import Header from "@/components/Header"
 import AuthenticatedHeader from "@/components/AuthenticatedHeader"
 import Footer from "@/components/Footer"
@@ -10,14 +11,20 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const { status } = useSession()
+  const pathname = usePathname()
   
+  const isStaffLoginPage = pathname.startsWith('/staff/')
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {status === "authenticated" ? <AuthenticatedHeader /> : <Header />}
+      {!isStaffLoginPage && (
+        status === "authenticated" ? <AuthenticatedHeader /> : <Header />
+      )}
       <main className="flex-grow">{children}</main>
-      <Footer />
+      {!isStaffLoginPage && <Footer />}
     </div>
   )
 }
 
 export default MainLayout
+
