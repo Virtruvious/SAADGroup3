@@ -34,7 +34,7 @@ export default function StaffLoginForm() {
       setError("An error occurred. Please try again.");
       console.error("Login error:", res.error);
     } else if (res?.ok) {
-      router.push("/staff/test"); // change this to /staff/Staff, if you wanna see the other changes i made with james pages
+      router.push("/staff/test"); // change this to /staff/home, if you wanna see the other changes i made with james pages
     }
   };
 
