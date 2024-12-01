@@ -62,7 +62,7 @@ const AuthenticatedHeader = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="../Wishlist" className="flex flex-row">
+                  <Link href="../WishList" className="flex flex-row">
                     <Sparkles className="mr-2 h-4 w-4" />
                     Wish List
                   </Link>

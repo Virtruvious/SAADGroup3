@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { Toast } from "@/components/ui/toast";
 
 interface BookDetails {
   media_id: number;
@@ -17,6 +18,7 @@ interface BookDetails {
   publication_year: string;
   availability: number;
   media_type: string;
+  image: string;
 }
 const API_BASE_URL = "http://localhost:8000";
 
@@ -28,6 +30,9 @@ const BookDetail: React.FC = () => {
   const [error, setError] = useState(null);
   const [isbookInWishlist, setIsBookInWishlist] = useState(false);
   const { data: session, status } = useSession();
+  const [showImagePopup, setShowImagePopup] = useState(false);
+  const [toastKey, setToastKey] = useState(0);
+  const [toastMessage, setToastMessage] = useState("");
 
   useEffect(() => {
     if (status === "loading" || !router.isReady) return;
@@ -108,7 +113,9 @@ const BookDetail: React.FC = () => {
             },
           }
         );
-        setIsBookInWishlist(true)
+        setIsBookInWishlist(true);
+        setToastMessage("Book added to wishlist");
+        setToastKey((prevKey) => prevKey + 1);
         // console.log("Response status:", response.status);
       } catch (error) {
         console.error("Error adding book to wishlist:", error);
@@ -128,11 +135,17 @@ const BookDetail: React.FC = () => {
           }
         );
         setIsBookInWishlist(false);
+        setToastMessage("Book removed from wishlist");
+        setToastKey((prevKey) => prevKey + 1);
         // console.log("Response status:", response.status);
       } catch (error) {
         console.error("Error removing book from wishlist:", error);
       }
     }
+  };
+
+  const toggleImagePopup = () => {
+    setShowImagePopup(!showImagePopup);
   };
 
   return (
@@ -160,24 +173,26 @@ const BookDetail: React.FC = () => {
         </div>
 
         {/* Book Detail Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-8">
           {/* Left Column - Image */}
-          <div className="aspect-[3/4] relative overflow-hidden rounded-lg bg-muted">
+          <div className="relative w-full max-w-[400px] aspect-[2/3] overflow-hidden rounded-lg shadow-md group">
             <img
-              src={"https://cdn.waterstones.com/bookjackets/large/9781/5291/9781529157468.jpg"}
-              alt={bookDetails.title}
-              className="object-cover"
+              src={bookDetails.image}
+              alt="Project Hail Mary (Paperback)"
+              className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
             />
-            {/* <Image
-              src={bookData.image}
-              alt={bookData.title}
-              fill
-              className="object-cover"
-              priority
-            /> */}
+
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
+              <button
+                className="bg-white text-gray-800 px-4 py-2 rounded-full hover:bg-gray-200 transition-colors duration-300"
+                onClick={toggleImagePopup}
+              >
+                Preview
+              </button>
+            </div>
           </div>
 
-          {/* right coulnm - details */}
+          {/* right column - details */}
           <div className="space-y-6">
             <h1 className="text-3xl font-bold">{bookDetails.title}</h1>
             <p className="text-2xl font-semibold text-blue-600">
@@ -242,8 +257,49 @@ const BookDetail: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Image Popup */}
+      {showImagePopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="max-w-[90%] max-h-[90%] overflow-auto">
+            <img
+              src={bookDetails.image}
+              alt="Project Hail Mary (Paperback)"
+              className="w-full h-auto"
+            />
+          </div>
+          <button
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+            onClick={toggleImagePopup}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
+      {toastMessage && (
+        <Toast
+          key={toastKey}
+          message={toastMessage}
+          onClose={() => setToastMessage("")}
+          duration={3000}
+        />
+      )}
     </div>
   );
 };
 
 export default BookDetail;
+

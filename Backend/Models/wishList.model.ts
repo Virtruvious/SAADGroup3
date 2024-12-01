@@ -53,7 +53,7 @@ WishList.addMedia = async (email, mediaId, result) => {
 WishList.getWishList = (email, result) => {
   pool
     .execute(
-      "SELECT w.wishlist_id, m.title, mw.media_id FROM wishlist w JOIN `aml`.`mediawishlist` mw ON w.wishlist_id = mw.wishlist_id JOIN `aml`.`media` m ON mw.media_id = m.media_id JOIN `aml`.`user` u ON w.user_id = u.user_id WHERE u.email = ?;",
+      "SELECT w.wishlist_id, m.title, m.image, mw.media_id FROM wishlist w JOIN `aml`.`mediawishlist` mw ON w.wishlist_id = mw.wishlist_id JOIN `aml`.`media` m ON mw.media_id = m.media_id JOIN `aml`.`user` u ON w.user_id = u.user_id WHERE u.email = ?;",
       [email]
     )
     .then(([rows]) => {

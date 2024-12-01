@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
@@ -10,36 +10,30 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
-import { Book, X } from "lucide-react";
+import { Book, X } from 'lucide-react';
+import { Toast } from "@/components/ui/toast";
 
 interface WishlistItem {
   wishlist_id: number;
   title: string;
   media_id: number;
   publication_year?: string;
+  image: string;
 }
 
-interface ToastProps {
-  message: string;
-  type: "success" | "error";
-}
-
-const Toast: React.FC<ToastProps> = ({ message, type }) => (
-  <div
-    className={`fixed bottom-4 right-4 p-4 rounded-md text-white ${
-      type === "success" ? "bg-green-500" : "bg-red-500"
-    }`}
-  >
-    {message}
-  </div>
-);
 
 const WishlistPage: React.FC = () => {
   const { data: session } = useSession();
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [toast, setToast] = useState<ToastProps | null>(null);
+  const [toastKey, setToastKey] = useState(0);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const showToast = useCallback((message: string) => {
+    setToastMessage(message);
+    setToastKey((prevKey) => prevKey + 1);
+  }, []);
 
   useEffect(() => {
     const fetchWishlistItems = async () => {
@@ -86,37 +80,31 @@ const WishlistPage: React.FC = () => {
     fetchWishlistItems();
   }, [session]);
 
-  const removeFromWishlist = async (media_id?:number) => {
+  const removeFromWishlist = async (media_id?: number) => {
     if (!session) return;
 
-      try {
-        // console.log("Unwishing book:", bookId);
-        const response = await fetch(
-          `http://localhost:8000/wishlist/removeMedia?ID=${media_id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              // @ts-ignore
-              Authorization: `Bearer ${session.jwt}`,
-            },
-          }
-        );
-        // console.log("Response status:", response.status);
-        setWishlistItems((prevItems) =>
-          prevItems.filter((item) => item.media_id !== media_id)
-        );
-      } catch (error) {
-        console.error("Error removing book from wishlist:", error);
-      }
+    try {
+      const response = await fetch(
+        `http://localhost:8000/wishlist/removeMedia?ID=${media_id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            // @ts-ignore
+            Authorization: `Bearer ${session.jwt}`,
+          },
+        }
+      );
+      setWishlistItems((prevItems) =>
+        prevItems.filter((item) => item.media_id !== media_id)
+      );
+      showToast("Book removed from wishlist");
+    } catch (error) {
+      console.error("Error removing book from wishlist:", error);
+      showToast("Error removing book from wishlist");
+    }
   };
 
-  useEffect(() => {
-    if (toast) {
-      const timer = setTimeout(() => setToast(null), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [toast]);
 
   if (loading) {
     return (
@@ -171,7 +159,11 @@ const WishlistPage: React.FC = () => {
             >
               <CardHeader className="p-4">
                 <div className="w-full h-32 bg-muted rounded flex items-center justify-center mb-2">
-                  <Book className="w-12 h-12 text-muted-foreground" />
+                  <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-32 object-cover rounded mb-2"
+                />
                 </div>
                 <CardTitle className="text-sm line-clamp-2">
                   {item.title}
@@ -203,9 +195,17 @@ const WishlistPage: React.FC = () => {
           ))}
         </div>
       </div>
-      {toast && <Toast message={toast.message} type={toast.type} />}
+      {toastMessage && (
+        <Toast
+          key={toastKey}
+          message={toastMessage}
+          onClose={() => setToastMessage("")}
+          duration={3000}
+        />
+      )}
     </div>
   );
 };
 
 export default WishlistPage;
+

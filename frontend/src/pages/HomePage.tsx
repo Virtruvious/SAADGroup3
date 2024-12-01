@@ -13,6 +13,7 @@ interface BookType {
     publication_year: string;
     availability: number;
     price: string;
+    image: string;
 }
 
 const API_BASE_URL = "http://localhost:8000";
@@ -66,7 +67,11 @@ const Homepage: React.FC = () => {
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader className="p-4">
                   <div className="w-full h-32 bg-muted rounded flex items-center justify-center mb-2">
-                    <Book className="w-12 h-12 text-muted-foreground" />
+                    <img
+                      src={book.image}
+                      alt={book.title}
+                      className="w-full h-32 object-cover rounded mb-2"
+                    />
                   </div>
                   <CardTitle className="text-sm line-clamp-2">
                     {book.title}
