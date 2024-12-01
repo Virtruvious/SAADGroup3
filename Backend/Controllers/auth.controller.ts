@@ -57,7 +57,7 @@ exports.checkPasswordStaff = (req, res) => {
   const { email, password } = req.body;
 
   if (email && password) {
-    auth.checkPassword(email, password, (err, data) => {
+    auth.checkPasswordStaff(email, password, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(401).send({

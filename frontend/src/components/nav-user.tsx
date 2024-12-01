@@ -106,7 +106,7 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <p onClick={handleLogout} className=" inline ">
+              <p onClick={handleLogout} className="flex flex-row gap-x-2">
               <LogOut /> Logout
               </p>
             </DropdownMenuItem>
