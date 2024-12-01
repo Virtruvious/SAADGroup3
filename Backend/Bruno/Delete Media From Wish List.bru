@@ -5,7 +5,19 @@ meta {
 }
 
 delete {
-  url: 
-  body: none
+  url: http://localhost:8000/wishList/removeMedia
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "email": "smith.done@gmail.com",
+    "mediaId":"29" 
+  }
+  
+  
+  
+  
+  
 }

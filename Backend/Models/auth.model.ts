@@ -121,4 +121,6 @@ User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone,
   });
 };
 
+User.Reset
+
 module.exports = User;

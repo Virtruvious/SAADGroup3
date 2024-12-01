@@ -4,8 +4,16 @@ meta {
   seq: 7
 }
 
-get {
-  url: 
-  body: none
+post {
+  url: http://localhost:8000/wishList/addMedia
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "email": "smith.done@gmail.com",
+    "mediaId": 32
+    
+  }
 }

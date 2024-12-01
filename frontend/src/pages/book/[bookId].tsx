@@ -93,6 +93,11 @@ const BookDetail: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left Column - Image */}
           <div className="aspect-[3/4] relative overflow-hidden rounded-lg bg-muted">
+            <img
+              src={"https://cdn.waterstones.com/bookjackets/large/9781/5291/9781529157468.jpg"}
+              alt={bookDetails.title}
+              className="object-cover"
+            />
             {/* <Image
               src={bookData.image}
               alt={bookData.title}
