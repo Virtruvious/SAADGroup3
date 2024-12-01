@@ -6,8 +6,8 @@ module.exports = (app) => {
     router.use(express.json());
 
     router.post('/addMedia', wishList.addMedia);
-    router.get('/getWishList', wishList.getWishList);
+    router.get('/getWishlist', wishList.getWishList);
     router.delete('/removeMedia', wishList.removeMedia);
 
-    app.use('/wishList', router);
+    app.use('/wishlist', router);
 }

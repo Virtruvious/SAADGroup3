@@ -48,14 +48,8 @@ import { useEffect } from "react";
 import { signIn } from "next-auth/react";
 
 const Header = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Log session status and data for debugging
-  useEffect(() => {
-    console.log("Session status:", status); // To see status of the session
-    console.log("Session data:", session); // To check session data
-  }, [status, session]); // Runs every time the session or status changes
 
   if (status === "loading") {
     return <div>Loading...</div>; // or any other loading state
@@ -66,20 +60,9 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center space-x-4">
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>
-                    House & Location
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="p-4">
-                      <p>Location content here</p>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+            <a className="flex items-center space-x-4" href="../">
+              <p className="font-bold text-3xl">AML System</p>
+            </a>
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="ghost">Help</Button>

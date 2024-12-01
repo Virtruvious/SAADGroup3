@@ -14,37 +14,32 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Search, User, Settings, LogOut, ChevronDown, ReceiptText , Sparkles  } from 'lucide-react';
+import {
+  Search,
+  User,
+  Settings,
+  LogOut,
+  ChevronDown,
+  ReceiptText,
+  Sparkles,
+} from "lucide-react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 
 const AuthenticatedHeader = () => {
   const { data: session } = useSession();
 
-  const displayName = session?.user?.firstName 
+  const displayName = session?.user?.firstName
     ? `${session.user.firstName} ${session.user.lastName}`
-    : session?.user?.name 
-    ?? session?.user?.email
-    ?? "User";
+    : session?.user?.name ?? session?.user?.email ?? "User";
 
   return (
     <header className="w-full border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4">
-          <div className="flex items-center space-x-4">
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>House & Location</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="p-4">
-                      <p>Location content here</p>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-          </div>
+          <a className="flex items-center space-x-4" href="../">
+            <p className="font-bold text-3xl">AML System</p>
+          </a>
           <div className="flex items-center space-x-4">
             <Button variant="ghost">Help</Button>
             <DropdownMenu>
@@ -55,22 +50,25 @@ const AuthenticatedHeader = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                <Link href="Account">
-                  <User className="mr-2 h-4 w-4" />Account
-                </Link>
+                  <Link href="../Account" className="flex flex-row">
+                    <User className="mr-2 h-4 w-4" />
+                    Account
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                <Link href="Orders"> 
-                  <ReceiptText className="mr-2 h-4 w-4" />Orders
-                </Link>
+                  <Link href="../Orders" className="flex flex-row">
+                    <ReceiptText className="mr-2 h-4 w-4" />
+                    Orders
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                <Link href="WishList"> 
-                  <Sparkles className="mr-2 h-4 w-4" />Wish List
-                </Link>
+                  <Link href="../Wishlist" className="flex flex-row">
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    Wish List
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => signOut()}>
-                  <LogOut className="mr-2 h-4 w-4" color="#Ff0000"/> Logout
+                  <LogOut className="mr-2 h-4 w-4" color="#Ff0000" /> Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
