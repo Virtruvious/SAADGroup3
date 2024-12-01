@@ -50,7 +50,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: CreditCard,
         items: [
           { title: "Subscription Management", url: "http://localhost:3000/staff/ManageMemberships", icon: CreditCard },
-          { title: "Payment Reconciliation", url: "#", icon: Wallet },
+          { title: "Payment Reconciliation", url: "http://localhost:3000/staff/Payment-reconciliation", icon: Wallet },
           { title: "Financial Reports", url: "#", icon: FileText },
           { title: "Compliance Tools", url: "#", icon: Settings2 },
           { title: "Adjustments & Updates", url: "#", icon: FileText },

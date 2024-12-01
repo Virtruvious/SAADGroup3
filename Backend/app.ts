@@ -31,6 +31,7 @@ app.post('/auth/register', authController.registerUser);
 require('./Routes/auth.routes')(app);
 require('./Routes/books.routes')(app);
 require('./Routes/wishList.routes')(app);
+require('./Routes/accountant.routes')(app);
 
 const port = 8000;
 app.listen(port, () => {

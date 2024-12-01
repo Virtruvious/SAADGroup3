@@ -82,6 +82,7 @@ User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone,
   const currentDate = new Date();
   let endDate = new Date();
   let subscriptionID;
+  let subscriptionCost;
 
   if (await User.checkEmail(email)) {
     // Email already exists
@@ -91,30 +92,32 @@ User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone,
   if(role == "user"){
   if (subscriptionType === "monthly") {
     endDate.setMonth(currentDate.getMonth() + 1);
+    subscriptionCost = 10.0;
   } else if (subscriptionType === "annual") {
     endDate.setFullYear(currentDate.getFullYear() + 1);
+    subscriptionCost = 99.0;
   } else {
     // Invalid subscription type
     result({ kind: "invalid_subscription" }, null);
   }
+  try{
+    //get id and insert into subscription
+    const [subscriptionResult] = await pool.execute("INSERT INTO subscription (subscription_type, start_date, end_date, status) VALUES (?, ?, ?, ?)", 
+    [subscriptionType, currentDate, endDate, 1]);
+    subscriptionID = subscriptionResult.insertId;
 
-  pool
-  .execute("INSERT INTO subscription (subscription_type, start_date, end_date, status) VALUES (?, ?, ?, ?)", [
-    subscriptionType,
-    currentDate,
-    endDate,
-    1,
-  ]).then(([rows]) => {
-    subscriptionID = rows.insertId;
-  }).catch((err) => {
+    await pool.execute("INSERT INTO payment (subscription_id, amount, payment_date, payment_method, status) VALUES (?, ?, ?, ?)",
+      [subscriptionID, subscriptionCost, currentDate, "inhouse", 1]);
+  } catch(err) {
     if (err.code === "ER_DUP_ENTRY") {
       // Duplicate entry
       result({ kind: "duplicate" }, null);
     } else {
-      console.error("Error: ", err);
+      console.error("Error during subscription/payment creation: ", err);
       result(err, null);
+      return;
     }
-  });
+  }
 }
 else if(role == "staff"){
   subscriptionID = -1;
