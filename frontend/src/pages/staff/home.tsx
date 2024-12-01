@@ -16,7 +16,7 @@ const Staff: React.FC = () => {
 
         <div className="max-w-4xl mx-auto py-8 px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link href="/staff/ManageMemberships" className="w-full">
+            <Link href="/staff/manage-memberships" className="w-full">
               <Button className="w-full text-xl py-8">Manage Memberships</Button>
             </Link>
             <Link href="/staff/reports" className="w-full">
