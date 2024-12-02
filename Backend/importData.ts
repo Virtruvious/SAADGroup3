@@ -15,8 +15,8 @@ let processedBooks = [];
       return;
     }
 
-    records.forEach((record: { title: string; author: string; publication_year: string; availability: string; price: string }) => {
-      const { title, author, publication_year, availability, price } = record;
+    records.forEach((record: { title: string; author: string; publication_year: string; availability: string; price: string, image:string }) => {
+      const { title, author, publication_year, availability, price, image } = record;
 
     const publicationDate = new Date(`${publication_year}-01-01`);
     processedBooks.push([
@@ -26,6 +26,7 @@ let processedBooks = [];
       publicationDate,
       availability,
       price,
+      image
     ]);
     });
 

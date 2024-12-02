@@ -106,7 +106,7 @@ User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone,
     [subscriptionType, currentDate, endDate, 1]);
     subscriptionID = subscriptionResult.insertId;
 
-    await pool.execute("INSERT INTO payment (subscription_id, amount, payment_date, payment_method, status) VALUES (?, ?, ?, ?)",
+    await pool.execute("INSERT INTO payment (subscription_id, amount, payment_date, payment_method, status) VALUES (?, ?, ?, ?,?)",
       [subscriptionID, subscriptionCost, currentDate, "inhouse", 1]);
   } catch(err) {
     if (err.code === "ER_DUP_ENTRY") {

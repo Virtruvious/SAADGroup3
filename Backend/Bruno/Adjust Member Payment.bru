@@ -5,7 +5,14 @@ meta {
 }
 
 post {
-  url: 
-  body: none
+  url: http://localhost:8000/accountant/payments/3/adjust
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "paymentId": "3",
+    "adjustment": "-1"
+  }
 }

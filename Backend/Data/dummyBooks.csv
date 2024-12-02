@@ -1,7 +1,7 @@
-title,author,type,publication_year,availability,price
-The Martian,Andy Weir,book,2011,1,33.70
-Project Hail Mary,Andy Weir,book,2021,1,19.65
-Dune,Frank Herbert,book,1965,1,28.25
+title,author,type,publication_year,availability,price,image
+The Martian,Andy Weir,book,2011,1,33.70,https://cdn.waterstones.com/bookjackets/large/9780/0919/9780091956141.jpg
+Project Hail Mary,Andy Weir,book,2021,1,19.65,https://cdn.waterstones.com/bookjackets/large/9781/5291/9781529157468.jpg
+Dune,Frank Herbert,book,1965,1,28.25,https://cdn.waterstones.com/bookjackets/large/9780/3409/9780340960196.jpg
 A Confederacy of Dunces,John Kennedy Toole,book,1980,1,13.52
 Beloved,Toni Morrison,book,1987,1,27.48
 The Lord of the Rings: The Fellowship of the Ring,J.R.R. Tolkien,book,1954,1,28.91
