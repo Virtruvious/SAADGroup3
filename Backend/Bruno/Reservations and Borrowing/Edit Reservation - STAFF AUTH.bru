@@ -1,0 +1,25 @@
+meta {
+  name: Edit Reservation - STAFF AUTH
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8000/books/editReservation/:reservationId
+  body: json
+  auth: bearer
+}
+
+params:path {
+  reservationId: 1
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJKYW5lLkRvZVBNQEFNTC5jb20iLCJyb2xlIjoic3RhZmYiLCJpYXQiOjE3MzMxODA5MzAsImV4cCI6MTczMzE4MjczMH0.oZ-nHYDTbNtIjLgWWApmBTAn_-2hR8NdGT_0OUhxZeE
+}
+
+body:json {
+  {
+    "newStatus": "reserved"
+  }
+}

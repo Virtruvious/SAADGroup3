@@ -1,0 +1,19 @@
+meta {
+  name: Cancel Borrow
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:8000/books/cancelBorrow/:mediaId
+  body: none
+  auth: bearer
+}
+
+params:path {
+  mediaId: 19
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsZWUuYmF4dGVyQGVtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMzMjY4NTQxLCJleHAiOjE3MzMyNzAzNDF9.zEhfimMaTb0RysrCEQBN_Q3AzFCO8fxnEP5vOZzmJRc
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Cancel Reservation
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8000/books/cancelReservation/:mediaId
+  body: none
+  auth: bearer
+}
+
+params:path {
+  mediaId: 20
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsZWUuYmF4dGVyQGVtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMzMjY4NTQxLCJleHAiOjE3MzMyNzAzNDF9.zEhfimMaTb0RysrCEQBN_Q3AzFCO8fxnEP5vOZzmJRc
+}

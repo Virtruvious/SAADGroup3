@@ -28,7 +28,11 @@ const BookDetail: React.FC = () => {
   const [bookDetails, setBookDetails] = useState<BookDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isbookInWishlist, setIsBookInWishlist] = useState(false);
+  const [userBookInfo, setUserBookInfo] = useState({
+    isBookInWishlist: false,
+    isBookReserved: false,
+    isBookBorrowed: false,
+  });
   const { data: session, status } = useSession();
   const [showImagePopup, setShowImagePopup] = useState(false);
   const [toastKey, setToastKey] = useState(0);
@@ -44,29 +48,30 @@ const BookDetail: React.FC = () => {
         // Access the first item in the 'book' array
         setBookDetails(data.book[0] || null);
 
-        // If logged in, check if the book is in the user's wishlist
+        // If logged in, check if the book is in the user's wishlist, borrow list, or reserve list
         if (session) {
-          const response = await fetch(`${API_BASE_URL}/wishlist/getWishlist`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              // @ts-ignore
-              Authorization: `Bearer ${session.jwt}`,
-            },
-          });
+          const userSpecificResponse = await fetch(
+            `${API_BASE_URL}/books/userSpecificInfo/${bookId}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                // @ts-ignore
+                Authorization: `Bearer ${session.jwt}`,
+              },
+            }
+          );
 
-          if (!response.ok) {
-            throw new Error("Failed to fetch wishlist");
+          if (!userSpecificResponse.ok) {
+            throw new Error("Failed to fetch user-specific book info");
           }
 
-          const data = await response.json();
-          const numericBookId = Number(bookId);
-          const isBookInWishlist = data.some(
-            (item: any) => item.media_id === numericBookId
-          );
-          setIsBookInWishlist(isBookInWishlist);
-
-          // console.log("Is book in wishlist:", isBookInWishlist);
+          const userSpecificData = await userSpecificResponse.json();
+          setUserBookInfo({
+            isBookInWishlist: userSpecificData.wishlist,
+            isBookReserved: userSpecificData.reservation,
+            isBookBorrowed: userSpecificData.borrow,
+          });
         }
       } catch (error) {
         console.error("Error fetching book details:", error);
@@ -99,7 +104,7 @@ const BookDetail: React.FC = () => {
   const wishListHandler = async () => {
     if (!session) return;
 
-    if (!isbookInWishlist) {
+    if (!userBookInfo.isBookInWishlist) {
       try {
         // console.log("Wishing book:", bookId);
         const response = await fetch(
@@ -113,7 +118,7 @@ const BookDetail: React.FC = () => {
             },
           }
         );
-        setIsBookInWishlist(true);
+        setUserBookInfo({ ...userBookInfo, isBookInWishlist: true });
         setToastMessage("Book added to wishlist");
         setToastKey((prevKey) => prevKey + 1);
         // console.log("Response status:", response.status);
@@ -134,12 +139,105 @@ const BookDetail: React.FC = () => {
             },
           }
         );
-        setIsBookInWishlist(false);
+        setUserBookInfo({ ...userBookInfo, isBookInWishlist: false });
         setToastMessage("Book removed from wishlist");
         setToastKey((prevKey) => prevKey + 1);
         // console.log("Response status:", response.status);
       } catch (error) {
         console.error("Error removing book from wishlist:", error);
+      }
+    }
+  };
+
+  const reservationHandler = async () => {
+    if (!session) return;
+
+    if (!userBookInfo.isBookReserved) {
+      try {
+        // console.log("Reserving book:", bookId);
+        const response = await fetch(
+          `${API_BASE_URL}/books/reserve/${bookId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              // @ts-ignore
+              Authorization: `Bearer ${session.jwt}`,
+            },
+          }
+        );
+        setUserBookInfo({ ...userBookInfo, isBookReserved: true });
+        setToastMessage("Book reserved");
+        setToastKey((prevKey) => prevKey + 1);
+        // console.log("Response status:", response.status);
+      } catch (error) {
+        console.error("Error reserving book:", error);
+      }
+    } else {
+      try {
+        // console.log("Unreserving book:", bookId);
+        const response = await fetch(
+          `${API_BASE_URL}/books/cancelReservation/${bookId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              // @ts-ignore
+              Authorization: `Bearer ${session.jwt}`,
+            },
+          }
+        );
+        setUserBookInfo({ ...userBookInfo, isBookReserved: false });
+        setToastMessage("Book reservation cancelled");
+        setToastKey((prevKey) => prevKey + 1);
+        // console.log("Response status:", response.status);
+      } catch (error) {
+        console.error("Error cancelling book reservation:", error);
+      }
+    }
+  };
+
+  const borrowHandler = async () => {
+    if (!session) return;
+
+    if (!userBookInfo.isBookBorrowed) {
+      try {
+        // console.log("Borrowing book:", bookId);
+        const response = await fetch(`${API_BASE_URL}/books/borrow/${bookId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // @ts-ignore
+            Authorization: `Bearer ${session.jwt}`,
+          },
+        });
+        setUserBookInfo({ ...userBookInfo, isBookBorrowed: true });
+        setToastMessage("Book borrowed");
+        setToastKey((prevKey) => prevKey + 1);
+        // console.log("Response status:", response.status);
+      } catch (error) {
+        console.error("Error borrowing book:", error);
+      }
+    } else {
+      try {
+        // console.log("Returning book:", bookId);
+        const response = await fetch(
+          `${API_BASE_URL}/books/cancelBorrow/${bookId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              // @ts-ignore
+              Authorization: `Bearer ${session.jwt}`,
+            },
+          }
+        );
+        setUserBookInfo({ ...userBookInfo, isBookBorrowed: false });
+        setToastMessage("Book returned");
+        setToastKey((prevKey) => prevKey + 1);
+        // console.log("Response status:", response.status);
+      } catch (error) {
+        console.error("Error returning book:", error);
       }
     }
   };
@@ -222,18 +320,18 @@ const BookDetail: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
               <Button
                 className="flex-1"
-                onClick={() => alert("Borrow functionality to be implemented")}
+                onClick={() => borrowHandler()}
                 disabled={session ? false : true}
               >
-                Borrow
+                {userBookInfo.isBookBorrowed ? "Return" : "Borrow"}
               </Button>
               <Button
                 className="flex-1"
                 variant="outline"
-                onClick={() => alert("Reserve functionality to be implemented")}
+                onClick={() => reservationHandler()}
                 disabled={session ? false : true}
               >
-                Reserve
+                {userBookInfo.isBookReserved ? "Cancel Reservation" : "Reserve"}
               </Button>
               <Button
                 className="flex-1"
@@ -241,7 +339,7 @@ const BookDetail: React.FC = () => {
                 onClick={() => wishListHandler()}
                 disabled={session ? false : true}
               >
-                {isbookInWishlist ? "Unwishlist" : "Wishlist"}
+                {userBookInfo.isBookInWishlist ? "Unwishlist" : "Wishlist"}
               </Button>
               <Button
                 className="flex-1"
@@ -302,4 +400,3 @@ const BookDetail: React.FC = () => {
 };
 
 export default BookDetail;
-

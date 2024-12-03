@@ -1,0 +1,19 @@
+meta {
+  name: Borrow Book
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8000/books/borrow/:bookId
+  body: none
+  auth: bearer
+}
+
+params:path {
+  bookId: 19
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsZWUuYmF4dGVyQGVtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMzMjYyODA1LCJleHAiOjE3MzMyNjQ2MDV9.y5X328DVxHhGEhy8Qs561R6NxXNrSS5z5JTtZYsuGGM
+}

@@ -1,0 +1,25 @@
+meta {
+  name: Edit Borrow - STAFF AUTH
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8000/books/editBorrow/:borrowId
+  body: json
+  auth: bearer
+}
+
+params:path {
+  borrowId: 1
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsZWUuYmF4dGVyQGVtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMzMjY3NTkzLCJleHAiOjE3MzMyNjkzOTN9.VmEa4Ne6de5Ml1_vFX7C0OSTM7UQ6qR9yA3WAlVzd0E
+}
+
+body:json {
+  {
+    "newStatus": "pending"
+  }
+}

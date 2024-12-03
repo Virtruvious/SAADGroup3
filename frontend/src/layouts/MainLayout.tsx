@@ -13,7 +13,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const { status } = useSession()
   const pathname = usePathname()
   
-  const isStaffLoginPage = pathname.startsWith('/staff/')
+  const isStaffLoginPage = pathname ? pathname.startsWith('/staff/') : false
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
