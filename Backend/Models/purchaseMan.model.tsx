@@ -113,6 +113,60 @@ PurchaseMan.getTrackingOrders = (result) => {
     });
 };
 
+PurchaseMan.updateOrderStatus = (orderId, status, result) => {
+  pool.execute(
+      `INSERT INTO tracking (order_id, status, status_date) 
+       VALUES (?, ?, NOW())`,
+      [orderId, status]
+  )
+  .then(() => {
+      result(null, { message: "Status updated successfully" });
+  })
+  .catch((err) => {
+      console.error("Error:", err);
+      result(err, null);
+  });
+};
+
+PurchaseMan.getTrackingOrders = (result) => {
+  pool.execute(`
+      SELECT 
+          t.*,
+          po.order_date,
+          v.name as vendor_name,
+          v.vendor_id,
+          u.first_name,
+          u.last_name,
+          GROUP_CONCAT(
+              JSON_OBJECT(
+                  'media_id', m.media_id,
+                  'title', m.title,
+                  'quantity', poi.quantity,
+                  'price', poi.price
+              )
+          ) as order_items
+      FROM tracking t 
+      JOIN purchaseorder po ON t.order_id = po.order_id 
+      JOIN vendors v ON po.vendor_id = v.vendor_id
+      JOIN user u ON po.user_id = u.user_id
+      JOIN purchase_order_items poi ON po.order_id = poi.order_id
+      JOIN media m ON poi.media_id = m.media_id
+      GROUP BY t.tracking_id, po.order_id, po.order_date, v.name, v.vendor_id, u.first_name, u.last_name
+      ORDER BY t.status_date DESC
+  `)
+  .then(([rows]) => {
+      const orders = rows.map(row => ({
+          ...row,
+          order_items: JSON.parse(`[${row.order_items}]`)
+      }));
+      result(null, orders);
+  })
+  .catch((err) => {
+      console.error("Error:", err);
+      result(err, null);
+  });
+};
+
 PurchaseMan.getVendorMedia = (vendorId, result) => {
   pool
     .execute(

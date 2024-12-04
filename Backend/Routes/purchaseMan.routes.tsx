@@ -12,6 +12,7 @@ module.exports = (app) => {
     router.get('/branches', purchaseMan.getBranches);
     router.post('/createMedia', purchaseMan.createMedia);
     router.get('/orderDetails/:orderId', purchaseMan.getOrderDetails);
+    router.post('/updateOrderStatus', purchaseMan.updateOrderStatus);
 
     app.use('/purchaseMan', router); 
 };

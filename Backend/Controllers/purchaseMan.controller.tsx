@@ -154,3 +154,37 @@ exports.getOrderDetails = (req, res) => {
         }
     });
 };
+
+exports.updateOrderStatus = (req, res) => {
+    const { order_id, status } = req.body;
+    purchaseMan.updateOrderStatus(order_id, status, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: "Error Updating Order Status",
+            });
+            console.log(err);
+        } else {
+            const successfulRes = {
+                message: "Status Updated Successfully",
+                data: data,
+            };
+            res.status(200).send(successfulRes);
+        }
+    });
+};
+
+exports.getTrackingOrders = (req, res) => {
+    purchaseMan.getTrackingOrders((err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: "Error Fetching Tracking Orders",
+            });
+            console.log(err);
+        } else {
+            const successfulRes = {
+                tracking: data,
+            };
+            res.status(200).send(successfulRes);
+        }
+    });
+};
