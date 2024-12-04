@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Book } from "lucide-react";
+import Image from "next/image";
 
 interface BookType {
     media_id: number;
@@ -67,9 +68,11 @@ const Homepage: React.FC = () => {
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader className="p-4">
                   <div className="w-full h-32 bg-muted rounded flex items-center justify-center mb-2">
-                    <img
+                    <Image
                       src={book.image}
                       alt={book.title}
+                      width={150}
+                      height={200}
                       className="w-full h-32 object-cover rounded mb-2"
                     />
                   </div>

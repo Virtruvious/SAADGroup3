@@ -46,7 +46,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
       {
         title: "AML Accountant",
-        url: "#",
+        url: "",
         icon: CreditCard,
         items: [
           { title: "Subscription Management", url: "http://localhost:3000/staff/ManageMemberships", icon: CreditCard },
@@ -69,7 +69,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: "#",
         icon: ShoppingCart,
         items: [
-          { title: "Create Purchase Order", url: "#", icon: ClipboardList },
+          { title: "Create Purchase Order", url: "http://localhost:3000/staff/CreateOrder", icon: ClipboardList },
           { title: "Track Orders", url: "#", icon: Truck },
           { title: "Vendor Catalogue", url: "#", icon: BookOpen },
           { title: "Delivery Updates", url: "#", icon: FileText },

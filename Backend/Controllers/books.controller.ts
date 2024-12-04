@@ -84,6 +84,28 @@ exports.getBookInfo = (req, res) => {
   });
 };
 
+exports.getBookInfoByName = (req, res) => {
+  const searchQuery = req.query.query;
+  
+  if (!searchQuery) {
+    return res.status(400).send({
+      message: "Search Query cannot be empty",
+    });
+  }
+
+  books.getBookInfoByName(searchQuery, (err, data) => {
+    if (err) {
+      return res.status(500).send({
+        message: "Error Fetching Book Info by Name",
+      });
+    }
+    console.log("data: ", data);
+    
+    res.status(200).send({
+      books: data});
+  });
+};
+
 exports.reserveBook = async (req, res) => {
   const bookId = req.params.bookId;
   if (!bookId) {

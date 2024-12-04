@@ -260,7 +260,7 @@ const BookDetail: React.FC = () => {
                 <span className="mx-2">/</span>
               </li>
               <li className="flex items-center">
-                <Link href="/all" className="text-blue-500 hover:text-blue-600">
+                <Link href="/catalog" className="text-blue-500 hover:text-blue-600">
                   All
                 </Link>
                 <span className="mx-2">/</span>

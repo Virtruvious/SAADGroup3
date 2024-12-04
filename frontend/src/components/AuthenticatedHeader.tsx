@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SearchBar } from "@/components/Search-Bar";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -77,14 +78,7 @@ const AuthenticatedHeader = () => {
 
         <div className="py-4">
           <div className="flex items-center space-x-4">
-            <div className="relative flex-1">
-              <Input
-                type="search"
-                placeholder="Search..."
-                className="pl-10 pr-4"
-              />
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-muted-foreground" />
-            </div>
+            <SearchBar />
           </div>
         </div>
 

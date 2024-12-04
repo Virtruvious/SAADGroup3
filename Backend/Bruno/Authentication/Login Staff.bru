@@ -1,11 +1,11 @@
 meta {
   name: Login Staff
   type: http
-  seq: 3
+  seq: 2
 }
 
 post {
-  url: http://localhost:8000/auth/staff/login
+  url: http://localhost:8000/auth/login
   body: json
   auth: none
 }
@@ -14,6 +14,8 @@ body:json {
   {
     "email": "Jane.DoePM@AML.com",
     "password": "password"
+    "email": "smith.done@gmail.com",
+    "password": "123"
   }
   
 }

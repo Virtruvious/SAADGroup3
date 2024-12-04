@@ -45,6 +45,35 @@ Book.getBookInfo = (bookId, result) => {
     });
 };
 
+Book.getBookInfoByName = (searchQuery, result) => {
+  pool
+    .execute(
+      `SELECT *, 
+       (CASE 
+         WHEN title LIKE ? THEN 2
+         WHEN author LIKE ? THEN 1
+         ELSE 0 
+       END) as relevance
+       FROM media 
+       WHERE title LIKE ? OR author LIKE ?
+       ORDER BY relevance DESC, title ASC
+       LIMIT 8;`,
+      [
+        `%${searchQuery}%`, // title match in CASE
+        `%${searchQuery}%`, //  author match in CASE
+        `%${searchQuery}%`, //  WHERE clause title
+        `%${searchQuery}%`  //  WHERE clause author
+      ]
+    )
+    .then(([rows]) => {
+    result(null, rows);  
+    })
+    .catch((err) => {
+      console.error("Error: ", err);
+      result(err, null);
+    });
+};
+
 Book.reserveBook = (bookId, user_id, result) => {
   // console.log("Reserving book: ", bookId);
   pool

@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     NEXTAUTH_SECRET: "wygHYW#4*6dnaKCZQD",
     NEXTAUTH_URL: "http://localhost:3000",
   },
+  images: {
+    domains: ["cdn.waterstones.com"],
+  },
 };
 
 export default nextConfig;

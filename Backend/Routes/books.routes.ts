@@ -7,6 +7,7 @@ module.exports = (app) => {
 
     router.get('/newBooks', book.getNewBooks);
     router.get('/random', book.getRandomBooks);
+    router.get('/search', book.getBookInfoByName);
     router.get('/:bookId', book.getBookInfo);
     router.post('/reserve/:bookId', book.reserveBook);
     router.post('/borrow/:bookId', book.borrowBook);

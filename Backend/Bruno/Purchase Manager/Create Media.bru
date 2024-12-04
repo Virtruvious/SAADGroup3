@@ -1,0 +1,24 @@
+meta {
+  name: Create Media
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8000/purchaseMan/createMedia
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "The Great Gatsby Copy",
+    "author": "F. Scott Fitzgerald",
+    "media_type": "book",
+    "publication_year": "1925-04-10",
+    "price": 15.99,
+    "image": "https://cdn.waterstones.com/bookjackets/large/9780/1411/9780141182636.jpg",
+    "description": "Only Gatsby, the man who gives his name to this book, was exempt from my reaction – Gatsby who represented everything for which I have unaffected scorn. If personality is an unbroken series of successful gestures, then there was something gorgeous about him, some heightened sensitivity to the promises of life, as if he were related to one of those intricate machines that measure earthquakes ten thousand miles away. \n The Great Gatsby is F. Scott Fitzgerald's brilliant fable of the hedonistic excess and tragic reality of 1920s America. \n Young, handsome and fabulously rich, Jay Gatsby is the bright star of the Jazz Age, but as writer Nick Carraway is drawn into the decadent orbit of his Long Island mansion, where the party never seems to end, he finds himself faced by the mystery of Gatsby's origins and desires.\n Beneath the shimmering surface of his life, Gatsby is hiding a secret: a silent longing that can never be fulfilled. And soon, this destructive obsession will force his world to unravel.\n In The Great Gatsby, Fitzgerald brilliantly captures both the disillusionment of post-war America and the moral failure of a society obsessed with wealth and status. But he does more than render the essence of a particular time and place, for - in chronicling Gatsby's tragic pursuit of his dream - Fitzgerald re-creates the universal conflict between illusion and reality.\n Like Jay Gatsby, F. Scott Fitzgerald (1896-1940) has acquired a mythical status in American literary history, and his masterwork The Great Gatsby is considered by many to be the great American novel. In 1920 he married Zelda Sayre, dubbed the first American Flapper, and their traumatic marriage and Zeldas gradual descent into insanity became the leading influence on his writing. As well as many short stories, Fitzgerald wrote five novels This Side of Paradise, The Great Gatsby, The Beautiful and the Damned, Tender is the Night and, incomplete at the time of his death, The Last Tycoon. After his death The New York Times said of him that",
+    "vendor_id": 1
+  }
+}
