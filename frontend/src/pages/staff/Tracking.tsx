@@ -29,67 +29,69 @@ import StaffLayout from "@/layouts/StaffLayout";
 import StaffHeader from "@/components/Staff-Header";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
+import { Toast } from "@/components/ui/toast";
+import router from "next/router";
 
 const API_BASE_URL = "http://localhost:8000";
 
 const StatusTimeline = ({ status }) => {
-    const statuses = ["Pending", "Shipped", "In Transit", "Delivered"];
-    const currentIndex = statuses.indexOf(status);
-  
-    if (status === "Canceled") {
-      return (
-        <div className="flex flex-col items-center w-full mt-4">
-          <div className="relative">
-            <div className="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center">
-              <svg
-                className="w-12 h-12 text-red-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </div>
-          </div>
-          <span className="text-red-500 font-medium mt-2">Order Canceled</span>
-        </div>
-      );
-    }
-  
+  const statuses = ["Pending", "Shipped", "In Transit", "Delivered"];
+  const currentIndex = statuses.indexOf(status);
+
+  if (status === "Canceled") {
     return (
-      <div className="flex items-center justify-between w-full mt-4">
-        {statuses.map((step, index) => (
-          <div key={step} className="flex flex-col items-center">
-            <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                index <= currentIndex
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted"
-              }`}
+      <div className="flex flex-col items-center w-full mt-4">
+        <div className="relative">
+          <div className="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center">
+            <svg
+              className="w-12 h-12 text-red-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              {index + 1}
-            </div>
-            <span className="text-sm mt-2">{step}</span>
-            {index < statuses.length - 1 && (
-              <div
-                className={`h-0.5 w-24 mt-4 ${
-                  index < currentIndex ? "bg-primary" : "bg-muted"
-                }`}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
               />
-            )}
+            </svg>
           </div>
-        ))}
+        </div>
+        <span className="text-red-500 font-medium mt-2">Order Canceled</span>
       </div>
     );
-  };
+  }
+
+  return (
+    <div className="flex items-center justify-between w-full mt-4">
+      {statuses.map((step, index) => (
+        <div key={step} className="flex flex-col items-center">
+          <div
+            className={`w-8 h-8 rounded-full flex items-center justify-center ${
+              index <= currentIndex
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted"
+            }`}
+          >
+            {index + 1}
+          </div>
+          <span className="text-sm mt-2">{step}</span>
+          {index < statuses.length - 1 && (
+            <div
+              className={`h-0.5 w-24 mt-4 ${
+                index < currentIndex ? "bg-primary" : "bg-muted"
+              }`}
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default function TrackingOrdersPage() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -98,6 +100,21 @@ export default function TrackingOrdersPage() {
     from: "",
     to: "",
   });
+  const [toastMessage, setToastMessage] = useState<{ message: string; type: "success" | "error" | "warning" | "info" } | null>(null)
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      const userEmail = session?.user?.email || "";
+      const isPurchaseManager = session?.user?.role === "purchase_manager";
+
+      console.log("User email:", userEmail);
+      console.log("Is purchase manager:", isPurchaseManager);
+      
+      if (!isPurchaseManager) {
+        router.push("/unauthorized");
+      }
+    }
+  }, [status, session]);
 
   useEffect(() => {
     fetchOrders();
@@ -112,6 +129,10 @@ export default function TrackingOrdersPage() {
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching orders:", error);
+      setToastMessage({
+        message: "Failed to fetch orders.",
+        type: "error",
+      });
       setIsLoading(false);
     }
   };
@@ -121,6 +142,10 @@ export default function TrackingOrdersPage() {
       await axios.post(`${API_BASE_URL}/purchaseMan/updateOrderStatus`, {
         order_id: orderId,
         status: newStatus,
+      });
+      setToastMessage({
+        message: "Order status updated successfully.",
+        type: "success",
       });
       fetchOrders();
     } catch (error) {
@@ -136,26 +161,37 @@ export default function TrackingOrdersPage() {
     });
   };
 
-  if (isLoading) {
+  const filteredOrders = orders.filter((order) => {
+    const matchesStatus = statusFilter === "all" || order.status === statusFilter;
+    const statusDate = order.status_date.split('T')[0];
+    
+    return matchesStatus && 
+      (!dateRange.from || statusDate >= dateRange.from) &&
+      (!dateRange.to || statusDate <= dateRange.to);
+  });
+
+  if (isLoading || status === "loading") {
     return (
       <StaffLayout>
-        <StaffHeader title="Order Tracking" />
+        <StaffHeader title="Create Purchase Order" />
         <div className="container mx-auto py-8 text-center">Loading...</div>
       </StaffLayout>
     );
   }
 
-  const filteredOrders = orders.filter((order) => {
-    const matchesStatus =
-      statusFilter === "all" || order.status === statusFilter;
-
-    const orderDate = new Date(order.order_date);
-    const matchesDateRange =
-      (!dateRange.from || orderDate >= new Date(dateRange.from)) &&
-      (!dateRange.to || orderDate <= new Date(dateRange.to));
-
-    return matchesStatus && matchesDateRange;
-  });
+  if (
+    !session?.user?.email?.includes("PM") || 
+    session?.user?.role !== "purchase_manager"
+  ) {
+    return (
+      <StaffLayout>
+        <StaffHeader title="Unauthorized Access" />
+        <div className="container mx-auto py-8 text-center">
+          You are not authorized to access this page. This page is only accessible to staff members with Purchase Manager access.
+        </div>
+      </StaffLayout>
+    );
+  }
 
   return (
     <StaffLayout>
@@ -253,7 +289,7 @@ export default function TrackingOrdersPage() {
                             </Button>
                           </DialogTrigger>
                           <DialogContent className="w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6">
-                            <DialogHeader className="sticky top-0 bg-background z-10 pb-4">
+                            <DialogHeader className="sticky top-0 bg-background z-10 pb-4 border-b">
                               <DialogTitle>
                                 Order Details #{order.order_id}
                               </DialogTitle>
@@ -389,6 +425,13 @@ export default function TrackingOrdersPage() {
             </Table>
           </CardContent>
         </Card>
+        {toastMessage && (
+          <Toast
+            message={toastMessage.message}
+            onClose={() => setToastMessage(null)}
+            type={toastMessage.type}
+          />
+        )}
       </div>
     </StaffLayout>
   );

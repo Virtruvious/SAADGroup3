@@ -9,7 +9,7 @@ const User = function (user) {
 User.checkPassword = (email, password, result) => {
   pool
     .execute(
-      "SELECT * FROM user INNER JOIN subscription ON user.subscription_id = subscription.subscription_id WHERE user.email = ?;",
+      "SELECT * FROM user INNER JOIN subscription ON user.subscription_id = subscription.subscription_id INNER JOIN subscription_plans ON subscription.plan_id = subscription_plans.plan_id WHERE user.email = ?;",
       [email]
     )
     .then(([rows]) => {
@@ -84,107 +84,67 @@ User.checkEmail = (email: string): Promise<boolean> => {
     });
 };
 
-User.registerUser = async (
-  firstName,
-  lastName,
-  email,
-  postcode,
-  houseNo,
-  phone,
-  role,
-  password,
-  subscriptionType,
-  result
-) => {
-  // Create Subscription
-  const currentDate = new Date();
-  let endDate = new Date();
-  let subscriptionID;
-  let subscriptionCost;
-
-  if (await User.checkEmail(email)) {
-    // Email already exists
-    result({ kind: "duplicate" }, null);
-    return;
-  }
-  if (role == "user") {
-    if (subscriptionType === "monthly") {
-      endDate.setMonth(currentDate.getMonth() + 1);
-      subscriptionCost = 10.0;
-    } else if (subscriptionType === "annual") {
-      endDate.setFullYear(currentDate.getFullYear() + 1);
-      subscriptionCost = 99.0;
-    } else {
-      // Invalid subscription type
-      result({ kind: "invalid_subscription" }, null);
+User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone, role, password, subscriptionType, result) => {
+  const connection = await pool.getConnection();
+  
+  try {
+    if (await User.checkEmail(email)) {
+      return result({ kind: "duplicate" }, null);
     }
-    try {
-      //get id and insert into subscription
-      const [subscriptionResult] = await pool.execute(
-        "INSERT INTO subscription (subscription_type, start_date, end_date, status) VALUES (?, ?, ?, ?)",
-        [subscriptionType, currentDate, endDate, 1]
+
+    await connection.beginTransaction();
+    
+    let subscriptionID = -1;
+    if (role === "user") {
+      const [plans] = await connection.execute(
+        "SELECT * FROM subscription_plans WHERE name = ?",
+        [subscriptionType]
+      );
+      
+      if (!plans.length) {
+        throw { kind: "invalid_subscription" };
+      }
+
+      const plan = plans[0];
+      const currentDate = new Date();
+      const endDate = new Date(currentDate);
+      endDate.setMonth(endDate.getMonth() + plan.duration);
+
+      const [subscriptionResult] = await connection.execute(
+        "INSERT INTO subscription (subscription_type, start_date, end_date, status, plan_id) VALUES (?, ?, ?, ?, ?)",
+        [subscriptionType, currentDate, endDate, 1, plan.plan_id]
       );
       subscriptionID = subscriptionResult.insertId;
 
-    await pool.execute("INSERT INTO payment (subscription_id, amount, payment_date, payment_method, status) VALUES (?, ?, ?, ?,?)",
-      [subscriptionID, subscriptionCost, currentDate, "inhouse", 1]);
-  } catch(err) {
-    if (err.code === "ER_DUP_ENTRY") {
-      // Duplicate entry
-      result({ kind: "duplicate" }, null);
-    } else {
-      console.error("Error during subscription/payment creation: ", err);
-      result(err, null);
-      return;
+      await connection.execute(
+        "INSERT INTO payment (subscription_id, amount, original_amount, payment_date, payment_method, status, reconciliation_status) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [subscriptionID, plan.price, plan.price, currentDate, "inhouse", 1, "matched"]
+      );
     }
-  }
-}
-else if(role == "staff"){
-  subscriptionID = -1;
-}
 
-  // Create User with hashed password
-  let saltRounds = 10;
-  bcrypt.hash(password, saltRounds, (err, hash) => {
-    if (err) {
-      result(err, null);
-      return;
-    }
-  
-    pool
-      .execute("SET FOREIGN_KEY_CHECKS=0;")
-      .then(() => {
-        return pool.execute(
-          "INSERT INTO user (first_name, last_name, email, postcode, house_number, phone, role, password, subscription_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
-          [
-            firstName,
-            lastName,
-            email,
-            postcode,
-            houseNo,
-            phone,
-            role,
-            hash,
-            subscriptionID,
-          ]
-        );
-      })
-      .then(([rows]) => {
-        return pool.execute("SET FOREIGN_KEY_CHECKS=1;").then(() => rows);
-      })
-      .then((rows) => {
-        result(null, rows);
-      })
-      .catch((err) => {
-        if (err.code === "ER_DUP_ENTRY") {
-          result({ kind: "duplicate" }, null);
-        } else {
-          console.error("Error: ", err);
-          result(err, null);
-        }
-      });
-  });
-  
+    const hash = await bcrypt.hash(password, 10);
+    const [userResult] = await connection.execute(
+      "INSERT INTO user (first_name, last_name, email, postcode, house_number, phone, role, password, subscription_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [firstName, lastName, email, postcode, houseNo, phone, role, hash, subscriptionID]
+    );
+
+    await connection.commit();
+    result(null, userResult);
+  } catch (err) {
+    await connection.rollback();
+    handleRegistrationError(err, result);
+  } finally {
+    connection.release();
+  }
+};
+
+const handleRegistrationError = (err, result) => {
+  if (err.code === "ER_DUP_ENTRY") result({ kind: "duplicate" }, null);
+  else if (err.kind === "invalid_subscription") result(err, null);
+  else {
+    console.error("Registration error:", err);
+    result(err, null);
+  }
 };
 
 module.exports = User;

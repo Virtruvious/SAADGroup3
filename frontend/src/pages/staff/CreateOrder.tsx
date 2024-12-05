@@ -24,6 +24,7 @@ import StaffHeader from "@/components/Staff-Header";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import router from "next/router";
+import { Toast } from "@/components/ui/toast";
 
 const API_BASE_URL = "http://localhost:8000";
 
@@ -40,6 +41,8 @@ export default function CreatePurchaseOrderPage() {
     branchId: "",
     deliveryDate: "",
   });
+  const [toastMessage, setToastMessage] = useState<{ message: string; type: "success" | "error" | "warning" | "info" } | null>(null)
+
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -124,6 +127,7 @@ export default function CreatePurchaseOrderPage() {
         quantity: 1 
       };
       setMediaItems([...mediaItems, itemWithQuantity]);
+      setToastMessage({ message: "Item added to order", type: "success" });
     }
   };
 
@@ -158,6 +162,7 @@ export default function CreatePurchaseOrderPage() {
         setMediaItems(updatedItems);
       } else {
         setMediaItems(prevItems => [...prevItems, itemWithQuantity]);
+        setToastMessage({ message: "Item added to order", type: "success" });
       }
   
       // reset form
@@ -181,11 +186,13 @@ export default function CreatePurchaseOrderPage() {
       }
     } catch (error) {
       console.error("Error adding media:", error);
+      setToastMessage({ message: "Failed to add item to order", type: "error" });
     }
   };
 
   const handleRemoveItem = (index) => {
     setMediaItems(mediaItems.filter((_, i) => i !== index));
+    setToastMessage({ message: "Item removed from order", type: "info" });
   };
 
   const handleQuantityChange = (index, value) => {
@@ -217,6 +224,7 @@ export default function CreatePurchaseOrderPage() {
         `${API_BASE_URL}/purchaseMan/purchaseOrder`,
         orderData
       );
+      setToastMessage({ message: "Order created successfully", type: "success" });
       console.log("Order created:", response.data);
       setMediaItems([]);
       setSelectedVendor("");
@@ -226,8 +234,10 @@ export default function CreatePurchaseOrderPage() {
       });
     } catch (error) {
       console.error("Error:", error);
+      setToastMessage({ message: "Failed to create order", type: "error" });
     }
   };
+
 
   const totalOrderValue = mediaItems.reduce(
     (total, item) => total + (Number(item.price) || 0) * (Number(item.quantity) || 1),
@@ -574,6 +584,13 @@ export default function CreatePurchaseOrderPage() {
             Submit Order
           </Button>
         </div>
+        {toastMessage && (
+          <Toast
+            message={toastMessage.message}
+            onClose={() => setToastMessage(null)}
+            type={toastMessage.type}
+          />
+        )}
       </div>
     </StaffLayout>
   );

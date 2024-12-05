@@ -7,12 +7,17 @@ meta {
 post {
   url: http://localhost:8000/accountant/payments/3/adjust
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicmVhbC5zdGFmZi5BQ0BhbWwuY29tIiwicm9sZSI6InN0YWZmIiwiaWF0IjoxNzMzNDE4NzEwLCJleHAiOjE3MzM0MjA1MTB9.471MnL4yA4Wa6t4rTOYwmsK9CpBAft7p3l1wvxRoja8
 }
 
 body:json {
   {
     "paymentId": "3",
-    "adjustment": "-1"
+    "adjustment": "-1",
+    "reason": "testing"
   }
 }

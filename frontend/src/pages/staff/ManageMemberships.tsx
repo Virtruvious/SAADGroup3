@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StaffLayout from "@/layouts/StaffLayout";
 import StaffHeader from "@/components/Staff-Header";
+import { useRouter } from "next/router";
 
 interface Member {
   user_id: number;
@@ -20,6 +21,7 @@ const ManageMemberships: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<Member | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -50,12 +52,14 @@ const ManageMemberships: React.FC = () => {
     setSelectedUser(null);
   };
 
+  const handleViewHistory = (userId: number) => {
+    router.push(`/staff/payments/history/${userId}`);
+  };
+
   const handleDeleteMembership = async () => {
     if (!selectedUser) return;
 
     try {
-      // Implement delete membership logic here
-      // This would typically involve calling an API endpoint to update/delete the membership
       console.log(`Deleting membership for user ${selectedUser.user_id}`);
       setSelectedUser(null);
     } catch (err) {
@@ -68,7 +72,7 @@ const ManageMemberships: React.FC = () => {
   if (loading) {
     return (
       <StaffLayout>
-        <StaffHeader title={"Manage Membership"}/>
+        <StaffHeader title={"Manage Membership"} />
         <div className="flex justify-center items-center h-64">
           Loading members...
         </div>
@@ -79,7 +83,7 @@ const ManageMemberships: React.FC = () => {
   if (error) {
     return (
       <StaffLayout>
-        <StaffHeader title={"Manage Membership"}/>
+        <StaffHeader title={"Manage Membership"} />
         <div className="flex justify-center items-center h-64 text-red-500">
           {error}
         </div>
@@ -89,9 +93,11 @@ const ManageMemberships: React.FC = () => {
 
   return (
     <StaffLayout>
-      <StaffHeader title={"Manage Membership"}/>
+      <StaffHeader title={"Manage Membership"} />
       <div className="p-6">
-        <h1 className="text-4xl font-bold text-center mb-8">Manage Memberships</h1>
+        <h1 className="text-4xl font-bold text-center mb-8">
+          Manage Memberships
+        </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {members.map((member) => (
@@ -103,7 +109,7 @@ const ManageMemberships: React.FC = () => {
               <div className="w-20 h-20 bg-gray-300 rounded-full mx-auto mb-4"></div>
               <p className="text-lg font-semibold">{`${member.first_name} ${member.last_name}`}</p>
               <p className="text-sm text-gray-600">
-                Expiry Date: {new Date(member.end_date).toUTCString() || 'N/A'}
+                Expiry Date: {new Date(member.end_date).toUTCString() || "N/A"}
               </p>
             </div>
           ))}
@@ -120,26 +126,35 @@ const ManageMemberships: React.FC = () => {
                 Email: {selectedUser.email}
               </p>
               <p className="text-center text-gray-700 mb-4">
-                Subscription Type: {selectedUser.subscription_type?.toLocaleUpperCase() || 'N/A'}
+                Subscription Type:{" "}
+                {selectedUser.subscription_type?.toLocaleUpperCase() || "N/A"}
               </p>
               <p className="text-center text-gray-700 mb-4">
-                Payment Amount: £{selectedUser.payment_amount || 'N/A'}
+                Payment Amount: £{selectedUser.payment_amount || "N/A"}
               </p>
               <p className="text-center text-gray-700 mb-4">
-                Status: {' '}
-                <span className={
-                  selectedUser.subscription_status === 1 
-                    ? 'text-green-500' 
-                    : 'text-red-500'
-                }>
-                  {selectedUser.subscription_status === 1 
-                    ? 'Active' 
+                Status:{" "}
+                <span
+                  className={
+                    selectedUser.subscription_status === 1
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }
+                >
+                  {selectedUser.subscription_status === 1
+                    ? "Active"
                     : selectedUser.subscription_status === 0
-                      ? 'Inactive'
-                      : 'No active subscription'}
+                    ? "Inactive"
+                    : "No active subscription"}
                 </span>
               </p>
-              <button 
+              <button
+                className="w-full bg-blue-500 text-white py-2 px-4 rounded-md mb-4 hover:bg-blue-600"
+                onClick={() => handleViewHistory(selectedUser.user_id)}
+              >
+                View Payment History
+              </button>
+              <button
                 className="w-full bg-red-500 text-white py-2 px-4 rounded-md mb-4 hover:bg-red-600"
                 onClick={handleDeleteMembership}
               >

@@ -1,0 +1,24 @@
+meta {
+  name: Create Payment Adjustments
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8000/accountant/payments/adjustments
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicmVhbC5zdGFmZi5BQ0BhbWwuY29tIiwicm9sZSI6InN0YWZmIiwiaWF0IjoxNzMzNDE0NjA2LCJleHAiOjE3MzM0MTY0MDZ9.-vE4YPDFfwCZ-w-x2ffRmZNnK6U6B_eQEmABk_AY7Sc
+}
+
+body:json {
+  {
+    "payment_id": "5",
+    "amount": 50,
+    "reason": "just testing if this is working",
+    "adjustedBy": 15
+  }
+}

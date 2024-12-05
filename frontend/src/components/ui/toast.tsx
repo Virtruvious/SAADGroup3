@@ -10,10 +10,46 @@ import { Button } from "@/components/ui/button"
 interface ToastProps {
   message: string
   onClose: () => void
+  type?: "success" | "error" | "warning" | "info"
   duration?: number
 }
 
-export const Toast: React.FC<ToastProps> = ({ message, onClose, duration = 3000 }) => {
+const ICONS = {
+  success: (
+    <svg className="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
+  error: (
+    <svg className="h-8 w-8 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  ),
+  warning: (
+    <svg className="h-8 w-8 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+    </svg>
+  ),
+  info: (
+    <svg className="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+    </svg>
+  ),
+}
+
+const BACKGROUND_CLASSES = {
+  success: "bg-green-50 border-green-200",
+  error: "bg-red-50 border-red-200",
+  warning: "bg-yellow-50 border-yellow-200",
+  info: "bg-blue-50 border-blue-200",
+}
+
+export const Toast: React.FC<ToastProps> = ({
+  message,
+  onClose,
+  type = "success",
+  duration = 3000,
+}) => {
   const [isVisible, setIsVisible] = React.useState(true)
 
   React.useEffect(() => {
@@ -36,17 +72,14 @@ export const Toast: React.FC<ToastProps> = ({ message, onClose, duration = 3000 
       leaveTo="opacity-0"
     >
       <div className="fixed bottom-4 right-4 z-50">
-        <div className={cn(
-          "bg-white rounded-lg shadow-lg",
-          "border-2 border-gray-200",
-          "p-6 max-w-md w-full"
-        )}>
+        <div
+          className={cn(
+            "rounded-lg shadow-lg p-6 max-w-md w-full border-2",
+            BACKGROUND_CLASSES[type]
+          )}
+        >
           <div className="flex items-start space-x-4">
-            <div className="flex-shrink-0">
-              <svg className="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
+            <div className="flex-shrink-0">{ICONS[type]}</div>
             <div className="flex-1 pt-0.5">
               <p className="text-base font-medium text-gray-900">{message}</p>
             </div>

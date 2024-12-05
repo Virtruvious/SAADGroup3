@@ -1,0 +1,22 @@
+meta {
+  name: Adjust Payment
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:8000/accountant/payments/5/adjust
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicmVhbC5zdGFmZi5BQ0BhbWwuY29tIiwicm9sZSI6InN0YWZmIiwiaWF0IjoxNzMzNDE0NjA2LCJleHAiOjE3MzM0MTY0MDZ9.-vE4YPDFfwCZ-w-x2ffRmZNnK6U6B_eQEmABk_AY7Sc
+}
+
+body:json {
+  {
+    "adjustment": 10,
+    "reason": "just testing if this is working"
+  }
+}

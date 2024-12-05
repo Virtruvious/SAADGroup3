@@ -38,6 +38,9 @@ exports.checkPassword = (req, res) => {
               type: data.subscription_type,
               start_date: data.start_date,
               end_date: data.end_date,
+              price: data.price,
+              duration: data.duration,
+              billing_frequency: data.billing_frequency
             }
           },
           token: token,
@@ -86,6 +89,9 @@ exports.checkPasswordStaff = (req, res) => {
               type: data.subscription_type,
               start_date: data.start_date,
               end_date: data.end_date,
+              price: data.price,
+              duration: data.duration,
+              billing_frequency: data.billing_frequency
             }
           },
           token: token,
