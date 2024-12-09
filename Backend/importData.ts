@@ -4,6 +4,21 @@ import { parse } from "csv-parse";
 require("dotenv").config();
 let mysql = require("mysql2");
 
+const subscriptionPlans = [
+  [
+    "monthly",
+    10,
+    1,
+    "monthly",
+  ],
+  [
+    "annual",
+    99,
+    12,
+    "yearly",
+  ],
+];
+
 let processedBooks = [];
 (() => {
   const csvPath = path.resolve(__dirname, "./Data/dummyBooks.csv");
@@ -35,7 +50,7 @@ let processedBooks = [];
           publicationDate,
           availability,
           price,
-          image
+          image,
         ]);
       }
     );
@@ -61,6 +76,14 @@ con.connect(function (err) {
   let sql =
     "INSERT INTO media (title, author, media_type, publication_year, availability, price, image) VALUES ?";
   con.query(sql, [processedBooks], function (err, result) {
+    if (err) throw err;
+    console.log("Number of records inserted: " + result.affectedRows);
+  });
+
+  // Insert subscription plans
+  let planSQL =
+    "INSERT INTO subscription_plans (name, price, duration, billing_frequency) VALUES ?";
+  con.query(planSQL, [subscriptionPlans], function (err, result) {
     if (err) throw err;
     console.log("Number of records inserted: " + result.affectedRows);
   });
