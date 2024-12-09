@@ -1,0 +1,19 @@
+meta {
+  name: Extended Payment Analytics
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8000/accountant/payments/extendedAnalytics?timeFrame=today
+  body: none
+  auth: bearer
+}
+
+query {
+  timeFrame: today
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoicmVhbC5zdGFmZi5BQ0BhbWwuY29tIiwicm9sZSI6InN0YWZmIiwiaWF0IjoxNzMzNzAxMTQ3LCJleHAiOjE3MzM3MDI5NDd9.qhEbw3hbqPny3WZEA0GsEvaHRasJR2uqgWg9dR5qxdw
+}

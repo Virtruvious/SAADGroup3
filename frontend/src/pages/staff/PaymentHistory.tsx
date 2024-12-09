@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Table } from "@/components/ui/table";
 import StaffLayout from "@/layouts/StaffLayout";
 import StaffHeader from "@/components/Staff-Header";
+import { useSession } from "next-auth/react";
 
 interface PaymentHistory {
     payment_id: number;
@@ -28,6 +29,16 @@ export const PaymentHistory = () => {
   const [history, setHistory] = useState<PaymentHistory[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    console.log("Session status:", status);
+    console.log("Session data:", session);
+    if (status === "loading") return;
+    if (status === "unauthenticated") {
+      window.location.href = "/staff/login";
+    }
+  }, [status]);
 
   useEffect(() => {
     const fetchHistory = async () => {

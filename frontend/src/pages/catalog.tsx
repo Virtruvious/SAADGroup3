@@ -75,7 +75,7 @@ const CatalogPage: React.FC = () => {
         const fetchBooks = async () => {
             try {
                 const [newBooksRes, randomBooksRes] = await Promise.all([
-                    fetch(`${API_BASE_URL}/books/newBooks`),
+                    fetch(`${API_BASE_URL}/books/newBooks?limit=10`),
                     fetch(`${API_BASE_URL}/books/random`),
                 ]);
 

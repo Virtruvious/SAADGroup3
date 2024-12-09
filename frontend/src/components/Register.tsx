@@ -142,6 +142,9 @@ const SubscriptionSelection = ({ onSubscriptionSelect }: any) => {
 const PersonalInfoForm = ({ selectedPlan, onBack }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [paymentAmount, setPaymentAmount] = useState<number>(0);
+ 
+  const planPrice = selectedPlan === 'annual' ? 99 : 10;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -155,10 +158,11 @@ const PersonalInfoForm = ({ selectedPlan, onBack }: any) => {
       email: formData.get("email"),
       phone: formData.get("phone"),
       postcode: formData.get("postcode"),
-      houseNo: formData.get("houseNumber"), // Changed to match backend expectation
+      houseNo: formData.get("houseNumber"),
       password: formData.get("password"),
       role: "user",
       subscriptionType: selectedPlan,
+      paymentAmount: paymentAmount  
     };
 
     try {
@@ -229,12 +233,28 @@ const PersonalInfoForm = ({ selectedPlan, onBack }: any) => {
         </div>
       )}
 
-      <div className="text-center mb-6">
-        <h3 className="text-lg font-medium">Complete your registration</h3>
-        <p className="text-sm text-muted-foreground">
-          Selected plan: {selectedPlan === "annual" ? "Annual" : "Monthly"}{" "}
-          Membership
-        </p>
+      {/* Add payment amount field before the password field */}
+      <div>
+        <label htmlFor="paymentAmount" className="block mb-2 text-sm font-medium">
+          Payment Amount (£{planPrice} {selectedPlan === 'annual' ? 'yearly' : 'monthly'})
+        </label>
+        <Input
+          id="paymentAmount"
+          name="paymentAmount"
+          type="number"
+          step="0.01"
+          min="0"
+          max={planPrice}
+          value={paymentAmount}
+          onChange={(e) => setPaymentAmount(Number(e.target.value))}
+          placeholder={`Enter amount up to £${planPrice}`}
+          required
+        />
+        {paymentAmount < planPrice && paymentAmount > 0 && (
+          <p className="text-sm text-amber-600 mt-1">
+            Outstanding balance will be: £{(planPrice - paymentAmount).toFixed(2)}
+          </p>
+        )}
       </div>
 
       <div className="grid grid-cols-2 gap-4">

@@ -5,18 +5,32 @@ const Book = function (book) {
   this.title = book.title;
 };
 
-Book.getNewBooks = (result) => {
-  pool
-    .execute(
-      "SELECT * FROM media WHERE media_type = 'book' ORDER BY publication_year DESC LIMIT 10;"
-    )
-    .then(([rows]) => {
-      result(null, rows);
-    })
-    .catch((err) => {
-      console.error("Error: ", err);
-      result(err, null);
-    });
+Book.getNewBooks = (limit,result) => {
+  if (limit == 10) {
+    pool
+      .execute(
+        "SELECT * FROM media WHERE media_type = 'book' ORDER BY publication_year DESC LIMIT 10;"
+      )
+      .then(([rows]) => {
+        result(null, rows);
+      })
+      .catch((err) => {
+        console.error("Error: ", err);
+        result(err, null);
+      });
+  } else {
+    pool
+      .execute(
+        "SELECT * FROM media WHERE media_type = 'book' ORDER BY publication_year DESC;"
+      )
+      .then(([rows]) => {
+        result(null, rows);
+      })
+      .catch((err) => {
+        console.error("Error: ", err);
+        result(err, null);
+      });
+  }
 };
 
 Book.getRandomBooks = (result) => {

@@ -8,6 +8,9 @@ module.exports = (app) => {
     router.post('/login', login.checkPassword);
     router.post('/staff/login', login.checkPasswordStaff);
     router.post('/register', login.registerUser);
+    router.get('/notifications', login.getNotifications);
+    router.post('/notifications/:notificationId/markRead', login.markNotificationRead);
+    router.delete('/notifications/:notificationId', login.deleteNotification);
 
     app.use('/auth', router);
 };

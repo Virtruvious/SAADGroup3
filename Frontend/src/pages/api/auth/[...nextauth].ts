@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
 
 export const authOptions: AuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   debug: true, // Enables debugging information in logs
   providers: [
     CredentialsProvider({
@@ -163,6 +164,7 @@ export const authOptions: AuthOptions = {
     maxAge: 30 * 60, // 30 minutes
   },
   jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
     maxAge: 30 * 60, // 30 minutes
   },
   pages: {

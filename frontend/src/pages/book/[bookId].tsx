@@ -341,16 +341,6 @@ const BookDetail: React.FC = () => {
               >
                 {userBookInfo.isBookInWishlist ? "Unwishlist" : "Wishlist"}
               </Button>
-              <Button
-                className="flex-1"
-                variant="secondary"
-                onClick={() =>
-                  alert("Add to Cart functionality to be implemented")
-                }
-                disabled={session ? false : true}
-              >
-                Add to Cart
-              </Button>
             </div>
           </div>
         </div>

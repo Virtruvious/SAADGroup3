@@ -31,7 +31,8 @@ async function verifyJWT(req, res, staff = false) {
 }
 
 exports.getNewBooks = (req, res) => {
-  books.getNewBooks((err, data) => {
+  const limit = req.query.limit;
+  books.getNewBooks(limit, (err, data) => {
     if (err) {
       res.status(500).send({
         message: "Error Fetching New Books",
@@ -44,7 +45,7 @@ exports.getNewBooks = (req, res) => {
       res.status(200).send(successfulRes);
     }
   });
-};
+}
 
 exports.getRandomBooks = (req, res) => {
   books.getRandomBooks((err, data) => {

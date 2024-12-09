@@ -39,11 +39,10 @@ const CategoryPage: React.FC = () => {
       setError(null)
 
       try {
-        // Determine which API endpoint to call based on the category
         let endpoint = '';
         switch(category) {
           case 'new-arrivals':
-            endpoint = `${API_BASE_URL}/books/newBooks`;
+            endpoint = `${API_BASE_URL}/books/newBooks?limit=0`;
             break;
           case 'featured-books':
             endpoint = `${API_BASE_URL}/books/random`;

@@ -80,21 +80,29 @@ User.checkEmail = (email: string): Promise<boolean> => {
     })
     .catch((err: Error) => {
       console.error("Error: ", err);
-      return false; // Handle error by returning false
+      return false;
     });
 };
 
-User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone, role, password, subscriptionType, result) => {
+User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone, role, password, subscriptionType, paymentAmount, result) => {
   const connection = await pool.getConnection();
   
   try {
     if (await User.checkEmail(email)) {
       return result({ kind: "duplicate" }, null);
     }
-
+ 
     await connection.beginTransaction();
     
     let subscriptionID = -1;
+
+    const hash = await bcrypt.hash(password, 10);
+    const [userResult] = await connection.execute(
+      "INSERT INTO user (first_name, last_name, email, postcode, house_number, phone, role, password, subscription_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [firstName, lastName, email, postcode, houseNo, phone, role, hash, subscriptionID]
+    );
+    const userID = userResult.insertId;
+ 
     if (role === "user") {
       const [plans] = await connection.execute(
         "SELECT * FROM subscription_plans WHERE name = ?",
@@ -104,30 +112,50 @@ User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone,
       if (!plans.length) {
         throw { kind: "invalid_subscription" };
       }
-
+ 
       const plan = plans[0];
       const currentDate = new Date();
       const endDate = new Date(currentDate);
       endDate.setMonth(endDate.getMonth() + plan.duration);
-
+ 
       const [subscriptionResult] = await connection.execute(
         "INSERT INTO subscription (subscription_type, start_date, end_date, status, plan_id) VALUES (?, ?, ?, ?, ?)",
         [subscriptionType, currentDate, endDate, 1, plan.plan_id]
       );
       subscriptionID = subscriptionResult.insertId;
-
+ 
+      await connection.execute(
+        "UPDATE user SET subscription_id = ? WHERE user_id = ?",
+        [subscriptionID, userID]
+      );
+ 
+      let reconciliationStatus;
+      if (paymentAmount === plan.price) {
+        reconciliationStatus = "matched";
+      } else if (paymentAmount < plan.price) {
+        reconciliationStatus = "underpaid";
+      } else {
+        reconciliationStatus = "overpaid";
+      }
+      
       await connection.execute(
         "INSERT INTO payment (subscription_id, amount, original_amount, payment_date, payment_method, status, reconciliation_status) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [subscriptionID, plan.price, plan.price, currentDate, "inhouse", 1, "matched"]
+        [subscriptionID, paymentAmount, plan.price, currentDate, "inhouse", 1, reconciliationStatus]
       );
+ 
+      if (reconciliationStatus === "underpaid") {
+        const outstandingAmount = plan.price - paymentAmount;
+        await connection.execute(
+          "INSERT INTO notifications (user_id, message, type, date, `read`) VALUES (?, ?, ?, NOW(), 0)",
+          [
+            userID,
+            `Outstanding balance of £${outstandingAmount.toFixed(2)} for your ${subscriptionType} subscription`,
+            "system"
+          ]
+        );
+      }
     }
-
-    const hash = await bcrypt.hash(password, 10);
-    const [userResult] = await connection.execute(
-      "INSERT INTO user (first_name, last_name, email, postcode, house_number, phone, role, password, subscription_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      [firstName, lastName, email, postcode, houseNo, phone, role, hash, subscriptionID]
-    );
-
+ 
     await connection.commit();
     result(null, userResult);
   } catch (err) {
@@ -136,13 +164,61 @@ User.registerUser = async (firstName, lastName, email, postcode, houseNo, phone,
   } finally {
     connection.release();
   }
-};
+ };
 
 const handleRegistrationError = (err, result) => {
   if (err.code === "ER_DUP_ENTRY") result({ kind: "duplicate" }, null);
   else if (err.kind === "invalid_subscription") result(err, null);
   else {
     console.error("Registration error:", err);
+    result(err, null);
+  }
+};
+
+User.getNotifications = async (userId, result) => {
+  const query = `
+    SELECT notification_id, message, date, \`read\`, type
+    FROM notifications
+    WHERE user_id = ?
+    ORDER BY date DESC
+  `;
+
+  try {
+    const [rows] = await pool.execute(query, [userId]);
+    result(null, rows);
+  } catch (err) {
+    console.error("Error fetching notifications:", err);
+    result(err, null);
+  }
+};
+
+User.markNotificationRead = async (notificationId, userId, result) => {
+  const query = `
+    UPDATE notifications 
+    SET \`read\` = true 
+    WHERE notification_id = ? AND user_id = ?
+  `;
+
+  try {
+    await pool.execute(query, [notificationId, userId]);
+    result(null, { success: true });
+  } catch (err) {
+    console.error("Error marking notification as read:", err);
+    result(err, null);
+  }
+};
+
+User.deleteNotification = async (notificationId, userId, result) => {
+  const query = `
+    DELETE FROM notifications
+    WHERE notification_id = ? AND user_id = ?
+  `;
+
+  try {
+    await pool.execute(query, [notificationId, userId]);
+    result(null, { success: true });
+  } catch (err) {
+    console.error("Error deleting notification:", err);
     result(err, null);
   }
 };
