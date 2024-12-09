@@ -245,7 +245,7 @@ const PersonalInfoForm = ({ selectedPlan, onBack }: any) => {
           step="0.01"
           min="0"
           max={planPrice}
-          value={paymentAmount}
+          value={paymentAmount === 0 ? '' : paymentAmount}
           onChange={(e) => setPaymentAmount(Number(e.target.value))}
           placeholder={`Enter amount up to £${planPrice}`}
           required
