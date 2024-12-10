@@ -23,51 +23,49 @@ The AML system requires a secure and user-friendly authentication and authorisat
 ## Considered Options
 
 * Custom authentication implementation
-* NextAuth.js with dual credential providers
+* NextAuth.js implementation
 * Auth0 or similar third-party authentication service
 * Passport.js with custom providers
 * Firebase Authentication
 
 ## Decision Outcome
 
-Chosen option: "NextAuth.js with dual credential providers", because:
+Chosen option: "NextAuth.js implementation", because:
 
-1. Implements separate authentication flows for members and staff using distinct credential providers
-2. Provides secure JWT-based session management with configurable timeouts
-3. Supports role-based access control through custom callbacks
-4. Integrates cleanly with the backend API authentication
-5. Maintains session security with 30-minute timeout periods
-6. Allows for custom login pages and error handling
+1. Provides built-in security features while allowing customisation
+2. Natural integration with our Next.js framework
+3. Can be implemented with multiple credential providers to separate member and staff authentication
+4. Supports JWT-based sessions out of the box
+5. No additional cost for our expected user base
+6. Active community and regular updates
 7. Provides debug mode for development and troubleshooting
 
-### Specific Implementation Details
+### Planned Implementation Details
 
-1. Two separate credential providers:
-   *User Credentials: Handles regular member authentication
-   *Staff Credentials: Handles staff authentication with role verification
+1. Authentication flows:
+    * Seperate credential providers for members and staff
+    * Custom login pages for different user types
+    * JWT-based session management
 
-2. Role-based authorisation:
-   *Member: Regular user access
-   *Staff: Base staff access
-   *Admin: Full administrative access (AM email prefix)
-   *Accountant: Financial access (AC email prefix)
-   *Purchase Manager: Purchasing access (PM email prefix)
+2. Role-based Access control:
+   * Member: Basic access rights
+   * Staff: Extended access rights
+   * Admin: Full system access
+   * Additional roles: Accountant, Purchase Manager
 
 3. Security measures:
-   *JWT-based session management
-   *30-minute session timeout
-   *Secure token handling
-   *Custom error logging
-   *Environment-based secrets
+   * Session timouts
+   * Secure token handling
+   * Environment-based secrets
+   * HTTPS enforcement
 
 ### Consequences
 
-* Good, because it provides separate, secure authentication flows for different user types
-* Good, because it implements role-based access control through email prefixes
-* Good, because it maintains secure session management with appropriate timeouts
-* Good, because it integrates smoothly with the backend API
-* Bad, because it relies on email prefixes for role determination, which might be inflexible
-* Bad, because it requires careful management of JWT secrets and timeouts
+* Good, because it reduces development time with pre-built security features
+* Good, because it provides flexibility for future authentication methods
+* Good, because it integrates naturally with our Next.js stack
+* Bad, because it adds a framework dependency
+* Bad, because complex custom requirements might need workarounds
 
 ### Confirmation
 
@@ -81,51 +79,53 @@ The decision will be validated through:
 
 ## Pros and Cons of the Options
 
-### NextAuth.js with dual credential providers
+### NextAuth.js Implementation
 
-* Good, because it allows separate handling of member and staff authentication
-* Good, because it provides built-in JWT session management
-* Good, because it enables custom callback functions for role management
-* Bad, because it requires careful implementation of role-based access
-* Neutral, because it needs custom error handling for different authentication flows
+* Good, because of native Next.js integration
+* Good, because of built-in security features
+* Good, because it's free and open-source
+* Bad, because it might limit some custom authentication flows
+* Bad, because we're dependent on the framework's development
 
 ### Custom authentication implementation
 
-* Good, because it would allow complete control over authentication flows
-* Good, because it could be optimized for specific role management
-* Bad, because it would require significant security implementation
-* Bad, because it would need custom session management
-* Bad, because it would increase development and maintenance time
+* Good, because of complete control over implementation
+* Good, because no external dependencies
+* Bad, because requires significant development time
+* Bad, because higher risk of security vulnerabilities
+* Bad, because requires ongoing maintenance
 
-### Auth0 or similar third-party service
+### Auth0 Integration
 
-* Good, because it provides enterprise-level security
-* Good, because it includes built-in role management
-* Bad, because it would require significant changes to current implementation
-* Bad, because it introduces additional costs
-* Bad, because it might not support the current dual-authentication approach
+* Good, because of enterprise-grade security
+* Good, because of comprehensive feature set
+* Bad, because of potential cost scaling issues
+* Bad, because of vendor lock-in
+* Bad, because might be overly complex for our needs
+
+### Firebase Authentication
+
+* Good, because of easy implementation
+* Good, because of Google infrastructure
+* Bad, because of potential vendor lock-in
+* Bad, because of potential cost scaling
+* Bad, because less control over authentication flow
+
+### Passport.js with Custom Strategy
+
+* Good, because of flexibility
+* Good, because of mature ecosystem
+* Bad, because requires more setup time
+* Bad, because requires more maintenance
+* Bad, because less integrated with Next.js
 
 ## More Information
 
 Implementation requirements:
+To implement this decision, we will need:
 
-1. Environment variables:
-   * NEXTAUTH_SECRET for JWT signing
-   * API endpoint configurations
-2. Backend API endpoints:
-   * /auth/login for member authentication
-   * /auth/staff/login for staff authentication
-3. Session configuration:
-   * JWT strategy
-   * 30-minute timeout
-   * Custom session data structure
-4. Role-based access control implementation
-5. Error handling and logging strategy
-
-The system will need ongoing monitoring of:
-
-1. Authentication success/failure rates
-2. Session timeout effectiveness
-3. Role-based access control accuracy
-4. JWT token security
-5. API integration stability
+1. Development team training on NextAuth.js
+2. Security review of planned implementation
+3. Documentation of role-based access control requirements
+4. Integration plan with backend services
+5. Testing strategy for authentication flows
