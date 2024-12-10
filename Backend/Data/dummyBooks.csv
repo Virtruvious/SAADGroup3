@@ -1,21 +1,329 @@
-title,author,type,publication_year,availability,price,image
-The Martian,Andy Weir,book,2011,1,33.70,https://cdn.waterstones.com/bookjackets/large/9780/0919/9780091956141.jpg
-Project Hail Mary,Andy Weir,book,2021,1,19.65,https://cdn.waterstones.com/bookjackets/large/9781/5291/9781529157468.jpg
-Dune,Frank Herbert,book,1965,1,28.25,https://cdn.waterstones.com/bookjackets/large/9780/3409/9780340960196.jpg
-A Confederacy of Dunces,John Kennedy Toole,book,1980,1,13.52,https://cdn.waterstones.com/bookjackets/large/9780/1411/9780141182865.jpg
-Beloved,Toni Morrison,book,1987,1,27.48,https://cdn.waterstones.com/bookjackets/large/9780/0997/9780099760115.jpg
-The Lord of the Rings: The Fellowship of the Ring,J.R.R. Tolkien,book,1954,1,28.91,https://cdn.waterstones.com/bookjackets/large/9780/0085/9780008567125.jpg
-The Lord of the Rings: The Two Towers,J.R.R. Tolkien,book,1954,1,10.18,https://cdn.waterstones.com/bookjackets/large/9780/0085/9780008567132.jpg
-The Lord of the Rings: The Return of the King,J.R.R. Tolkien,book,1955,1,19.07,https://cdn.waterstones.com/bookjackets/large/9780/0085/9780008567149.jpg
-Pride and Prejudice,Jane Austen,book,1813,1,14.26,https://cdn.waterstones.com/override/v1/large/9780/1410/9780141040349.jpg
-To Kill a Mockingbird,Harper Lee,book,1960,1,17.06,https://cdn.waterstones.com/bookjackets/large/9781/7847/9781784752637.jpg
-The Hitchhiker's Guide to the Galaxy,Douglas Adams,book,1979,1,10.72,https://cdn.waterstones.com/bookjackets/large/9781/5290/9781529034523.jpg
-The Catcher in the Rye,J.D. Salinger,book,1951,1,13.06,https://cdn.waterstones.com/override/v1/large/9780/2419/9780241950432.jpg
-One Hundred Years of Solitude,Gabriel García Márquez,book,1967,1,15.65,https://cdn.waterstones.com/bookjackets/large/9780/2419/9780241968581.jpg
-The Great Gatsby,F. Scott Fitzgerald,book,1925,1,30.72,https://cdn.waterstones.com/bookjackets/large/9780/1411/9780141182636.jpg
-In Cold Blood,Truman Capote,book,1966,1,15.84,https://cdn.waterstones.com/override/v1/large/9780/1411/9780141182575.jpg
-The Handmaid's Tale,Margaret Atwood,book,1985,1,22.34,https://cdn.waterstones.com/override/v2/large/9780/0997/9780099740919.jpg
-1984,George Orwell,book,1949,1,25.07,https://cdn.waterstones.com/bookjackets/large/9780/1411/9780141187761.jpg
-Animal Farm,George Orwell,book,1945,1,23.81,https://cdn.waterstones.com/bookjackets/medium/9780/1411/9780141182704.jpg
-The God of Small Things,Arundhati Roy,book,1997,1,23.21,https://cdn.waterstones.com/bookjackets/medium/9780/0085/9780008556174.jpg
-The Remains of the Day,Kazuo Ishiguro,book,1989,1,25.15,https://cdn.waterstones.com/bookjackets/large/9780/5712/9780571258246.jpg
+title,author,type,publication_year,availability,price,image,description
+The Martian,Andy Weir,book,2011,1,33.70,https://cdn.waterstones.com/bookjackets/large/9780/0919/9780091956141.jpg,"The bestseller behind the major film from Ridley Scott, starring Matt Damon and Jessica Chastain.
+
+I'm stranded on Mars. I have no way to communicate with Earth. I'm in a Habitat designed to last 31 days.
+
+If the Oxygenator breaks down, I'll suffocate. If the Water Reclaimer breaks down, I'll die of thirst. If the Hab breaches, I'll just kind of explode. If none of those things happen, I'll eventually run out of food and starve to death.
+
+So yeah. I'm screwed.
+After a dust storm nearly kills him and forces his crew to evacuate while thinking him dead, Mark finds himself stranded and completely alone with no way to even signal Earth that he’s alive—and even if he could get word out, his supplies would be gone long before a rescue could arrive.
+
+Chances are, though, he won't have time to starve to death. The damaged machinery, unforgiving environment, or plain-old ""human error"" are much more likely to kill him first.
+
+But Mark isn't ready to give up yet. Drawing on his ingenuity, his engineering skills—and a relentless, dogged refusal to quit—he steadfastly confronts one seemingly insurmountable obstacle after the next. Will his resourcefulness be enough to overcome the impossible odds against him?
+
+A fan of The Martian? Read Andy Weir's second novel Artemis
+
+“A book I just couldn’t put down! It has the very rare combination of a good, original story, interestingly real characters and fascinating technical accuracy…reads like “MacGyver” meets “Mysterious Island.” - Astronaut Chris Hadfield, Commander of the International Space Station and author of An Astronaut’s Guide to Life on Earth
+Publisher: Cornerstone
+ISBN: 9780091956141
+Number of pages: 384
+Weight: 263 g
+Dimensions: 197 x 126 x 23 mm"
+Project Hail Mary,Andy Weir,book,2021,1,19.65,https://cdn.waterstones.com/bookjackets/large/9781/5291/9781529157468.jpg,"A lone astronaut.
+An impossible mission.
+An ally he never imagined.
+
+Ryland Grace is the sole survivor on a desperate, last-chance mission - and if he fails, humanity and the earth itself will perish.
+
+Except that right now, he doesn't know that. He can't even remember his own name, let alone the nature of his assignment or how to complete it.
+
+All he knows is that he's been asleep for a very, very long time. And he's just been awakened to find himself millions of miles from home, with nothing but two corpses for company.
+
+His crewmates dead, his memories fuzzily returning, Ryland realizes that an impossible task now confronts him. Hurtling through space on this tiny ship, it's up to him to puzzle out an impossible scientific mystery-and conquer an extinction-level threat to our species.
+
+And with the clock ticking down and the nearest human being light-years away, he's got to do it all alone.
+
+Or does he?
+
+An irresistible interstellar adventure as only Andy Weir could imagine it, Project Hail Mary is a tale of discovery, speculation, and survival to rival The Martian -- while taking us to places it never dreamed of going.
+
+Publisher: Cornerstone
+ISBN: 9781529157468
+Number of pages: 496
+Weight: 345 g
+Dimensions: 198 x 129 x 29 mm"
+Dune,Frank Herbert,book,1965,1,28.25,https://cdn.waterstones.com/bookjackets/large/9780/3409/9780340960196.jpg,"Before The Matrix, before Star Wars, before Ender's Game and Neuromancer, there was Dune: winner of the prestigious Hugo and Nebula awards, and widely considered one of the greatest science fiction novels ever written.
+
+Melange, or 'spice', is the most valuable - and rarest - element in the universe; a drug that does everything from increasing a person's life-span to making interstellar travel possible. And it can only be found on a single planet: the inhospitable desert world Arrakis.
+
+Whoever controls Arrakis controls the spice. And whoever controls the spice controls the universe.
+
+When the Emperor transfers stewardship of Arrakis from the noble House Harkonnen to House Atreides, the Harkonnens fight back, murdering Duke Leto Atreides. Paul, his son, and Lady Jessica, his concubine, flee into the desert. On the point of death, they are rescued by a band for Fremen, the native people of Arrakis, who control Arrakis' second great resource: the giant worms that burrow beneath the burning desert sands.
+
+In order to avenge his father and retake Arrakis from the Harkonnens, Paul must earn the trust of the Fremen and lead a tiny army against the innumerable forces aligned against them. And his journey will change the universe.
+
+Publisher: Hodder & Stoughton
+ISBN: 9780340960196
+Number of pages: 592
+Weight: 408 g
+Dimensions: 196 x 128 x 42 mm"
+A Confederacy of Dunces,John Kennedy Toole,book,1980,1,13.52,https://cdn.waterstones.com/bookjackets/large/9780/1411/9780141182865.jpg,"A monument to sloth, rant and contempt, a behemoth of fat, flatulence and furious suspicion of anything modern - this is Ignatius J. Reilly of New Orleans, noble crusader against a world of dunces. The ordinary folk of New Orleans seem to think he is unhinged. Ignatius ignores them, heaving his vast bulk through the city's fleshpots in a noble crusade against vice, modernity and ignorance. But his momma has a nasty surprise in store for him: Ignatius must get a job. Undaunted, he uses his new-found employment to further his mission - and now he has a pirate costume and a hot-dog cart to do it with...
+
+John Kennedy Toole (1937-1969) was born in New Orleans. He received a master's degree in English from Columbia University and taught at Hunter College and at the University of Southwestern Louisiana. He wrote A Confederacy of Dunces in the early sixties and tried unsuccessfully to get the novel published; depressed, at least in part by his failure to place the book, he committed suicide in 1969. It was only through the tenacity of his mother that her son's book was eventually published and found the audience it deserved, winning the 1981 Pulitzer Prize for Fiction. His long-suppressed novel The Neon Bible, written when he was only sixteen, was eventually published as well.
+
+
+Publisher: Penguin Books Ltd
+ISBN: 9780141182865
+Number of pages: 352
+Weight: 249 g
+Dimensions: 198 x 130 x 15 mm"
+Beloved,Toni Morrison,book,1987,1,27.48,https://cdn.waterstones.com/bookjackets/large/9780/0997/9780099760115.jpg,"‘Ms. Morrison’s versatility and technical and emotional range appear to know no bounds. If there were any doubts about her stature as a pre-eminent American novelist, of her own or any other generation, Beloved will put them to rest. In three words or less, it’s a hair-raiser.’ - Margaret Atwood
+
+The winner of the 1988 Pulitzer Prize and a finalist for the 1987 National Book Award, Beloved remains American novelist Toni Morrison’s crowning achievement. Dedicated to the ‘Sixty Million and more’ Africans and their descendants who died as a result of the slave trade, the novel remains both a mesmerising family story and a landmark depiction of the legacy of slavery, both on individuals and America’s national psyche.
+
+Set in the mid-1800’s in the aftermath of the American Civil War, Beloved chronicles the experiences of Sethe, abandoned by her sons and living with her youngest daughter in Cincinnati. Sethe’s is a house haunted by secrets; of the violent, traumatic memories of her former enslaved life at Sweet Home, Kentucky and by shameful secrets that refuse to stay buried.
+
+When another Sweet Home survivor, Paul D, appears at Sethe’s door, his arrival heralds the mysterious coming of a woman, calling herself only ‘Beloved’. As the revenant Beloved makes her home with Sethe, so her life becomes increasingly devoted both to her ever-increasing and contrary demands for love and her insatiable need for atonement.
+
+Deploying a lyrical, resonant and mythically charged style whilst remaining utterly rooted in the reality of her subject matter, Beloved exemplifies Toni Morrison’s talent for telling a vital story in the right way. In its refusal to shy away from the horrors experienced by Sethe, Morrison’s novel reflects the countless - often unspoken - atrocities committed by whites against people of colour throughout history. But Beloved is not a polemic. It interweaves ideas of motherhood, family, folklore and community, creating a narrative that is never less than utterly engrossing. The result is a rich, fully realised story that, as Jane Smiley writes in the Guardian, is ‘likely to mould or change a reader's sense of the world.’
+
+Publisher: Vintage Publishing
+ISBN: 9780099760115
+Number of pages: 352
+Weight: 245 g
+Dimensions: 198 x 128 x 20 mm"
+The Lord of the Rings: The Fellowship of the Ring,J.R.R. Tolkien,book,1954,1,28.91,https://cdn.waterstones.com/bookjackets/large/9780/0085/9780008567125.jpg,"Continuing the story begun in The Hobbit, this is the first part of Tolkien's epic masterpiece, The Lord of the Rings, featuring a striking black cover based on Tolkien's own design and the definitive text.
+
+Sauron, the Dark Lord, has gathered to him all the Rings of Power - the means by which he intends to rule Middle-earth. All he lacks in his plans for dominion is the One Ring - the ring that rules them all - which has fallen into the hands of the hobbit, Bilbo Baggins.
+
+In a sleepy village in the Shire, young Frodo Baggins finds himself faced with an immense task, as his elderly cousin Bilbo entrusts the Ring to his care. Frodo must leave his home and make a perilous journey across Middle-earth to the Cracks of Doom, there to destroy the Ring and foil the Dark Lord in his evil purpose.
+
+Now published again in B format, J.R.R. Tolkien's great work of imaginative fiction has been labelled both a heroic romance and a classic fantasy fiction. By turns comic and homely, epic and diabolic, the narrative moves through countless changes of scene and character in an imaginary world which is totally convincing in its detail.
+
+Publisher: HarperCollins Publishers
+ISBN: 9780261103573
+Number of pages: 448
+Weight: 310 g
+Dimensions: 198 x 129 x 28 mm"
+The Lord of the Rings: The Two Towers,J.R.R. Tolkien,book,1954,1,10.18,https://cdn.waterstones.com/bookjackets/large/9780/0085/9780008567132.jpg,"
+A special unjacketed hardback edition of the second part of J.R.R. Tolkien's epic masterpiece, The Lord of the Rings. This edition features the complete story with a unique cover design embellished with copper foil and the iconic maps appearing in red and black as endpapers.
+
+Frodo and the Companions of the Ring have been beset by danger during their quest to prevent the Ruling Ring from falling into the hands of the Dark Lord by destroying it in the Cracks of Doom. They have lost the wizard, Gandalf, in the battle with an evil spirit in the Mines of Moria; and at the Falls of Rauros, Boromir, seduced by the power of the Ring, tried to seize it by force. While Frodo and Sam made their escape the rest of the company were attacked by Orcs.
+
+Now they continue their journey alone down the great River Anduin - alone, that is, save for the mysterious creeping figure that follows wherever they go.
+
+Publisher: HarperCollins Publishers
+ISBN: 9780008567132
+Number of pages: 352
+Weight: 440 g
+Dimensions: 222 x 141 x 32 mm
+Edition: Special Collector’s edition"
+The Lord of the Rings: The Return of the King,J.R.R. Tolkien,book,1955,1,19.07,https://cdn.waterstones.com/bookjackets/large/9780/0085/9780008567149.jpg,"A special unjacketed hardback edition of the final part of J.R.R. Tolkien's epic masterpiece, The Lord of the Rings. This edition features the complete story with a unique cover design embellished with silver foil and the iconic maps appearing in red and black as endpapers.
+
+The Companions of the Ring have become involved in separate adventures as the quest continues. Aragorn, revealed as the hidden heir of the ancient Kings of the West, joined with the Riders of Rohan against the forces of Isengard, and took part in the desperate victory of the Hornburg. Merry and Pippin, captured by orcs, escaped into Fangorn Forest and there encountered the Ents.
+
+Gandalf returned, miraculously, and defeated the evil wizard, Saruman. Meanwhile, Sam and Frodo progressed towards Mordor to destroy the Ring, accompanied by Smeagol - Gollum, still obsessed by his 'preciouss'. After a battle with the giant spider, Shelob, Sam left his master for dead; but Frodo is still alive - in the hands of the orcs. And all the time the armies of the Dark Lord are massing.
+
+Publisher: HarperCollins Publishers
+ISBN: 9780008567149
+Number of pages: 448
+Weight: 540 g
+Dimensions: 222 x 141 x 40 mm
+Edition: Special Collector’s edition"
+Pride and Prejudice,Jane Austen,book,1813,1,14.26,https://cdn.waterstones.com/override/v1/large/9780/1410/9780141040349.jpg,"For Mrs Bennet, a mother to five daughters, little else is of consequence than the prospect of a successful and advantageous marriage for each of them. Her daughter Elizabeth, independent and spirited, has other ideas.
+
+When the wealthy and eligible bachelor Mr Bingley moves into the neighbourhood he seems everything one could want in a husband; engaging friendly and obliging he forms a quick attachment with Elizabeth’s beloved sister Jane. His friend and companion Fitzwilliam Darcy makes a less favourable first impression on Elizabeth, she thinks him arrogant and conceited whilst he seems indifferent to her quick wit and lively mind.
+
+When she later discovers that Darcy has involved himself in the troubled relationship between Bingley and Jane, their relationship seems destined to be one of animosity but both are about to learn the folly of judging from first impressions.
+
+In the sparkling comedy of manners that follows, Jane Austen creates one of the most powerful and enduring love stories of all time whilst superbly satirising the gossip, snobberies and social conventions of provincial middle-class life.
+
+Part of Penguin's beautiful hardback Clothbound Classics series, designed by the award-winning Coralie Bickford-Smith, these delectable and collectible editions are bound in high-quality colourful, tactile cloth with foil stamped into the design.
+
+Romantic, witty, acerbic and endlessly popular, Jane Austen’s novels are amongst the most revered, relevant and consistently readable novels in English Literature. Subtly different in tone, they range from the Gothic satire of Northanger Abbey, the drama of Pride and Prejudice and the razor-sharp observation of Emma to the poignancy and tenderness of Sense and Sensibility, Mansfield Park and Persuasion.
+
+Publisher: Penguin Books Ltd
+ISBN: 9780141040349
+Number of pages: 480
+Weight: 599 g
+Dimensions: 204 x 138 x 42 mm"
+To Kill a Mockingbird,Harper Lee,book,1960,1,17.06,https://cdn.waterstones.com/bookjackets/large/9781/7847/9781784752637.jpg,"'ONE OF THE GREATEST AMERICAN NOVELS EVER WRITTEN'
+
+'Shoot all the bluejays you want, if you can hit 'em, but remember it's a sin to kill a mockingbird.'
+
+A lawyer's advice to his children as he defends the real mockingbird of Harper Lee's classic novel - a black man falsely charged with the rape of a white girl. Through the young eyes of Scout and Jem Finch, Harper Lee explores with exuberant humour the irrationality of adult attitudes to race and class in the Deep South of the 1930s. The conscience of a town steeped in prejudice, violence and hypocrisy is pricked by the stamina of one man's struggle for justice. But the weight of history will only tolerate so much.
+
+To Kill a Mockingbird is a coming-of-age story, an anti-racist novel, a historical drama of the Great Depression and a sublime example of the Southern writing tradition.
+
+Publisher: Cornerstone
+ISBN: 9781784752637
+Number of pages: 320
+Weight: 227 g
+Dimensions: 197 x 129 x 20 mm"
+The Hitchhiker's Guide to the Galaxy,Douglas Adams,book,1979,1,10.72,https://cdn.waterstones.com/bookjackets/large/9781/5290/9781529034523.jpg,"‘Sheer delight’ – The Times
+
+This 42nd Anniversary Edition includes exclusive bonus material from the Douglas Adams archives, and an introduction by Doctor Who showrunner, Russell T Davies.
+
+*****
+
+An international phenomenon and pop-culture classic, The Hitchhiker's Guide to the Galaxy has been a radio show, TV series, novel, stage play, comic book and film. Following the galactic (mis)adventures of Arthur Dent, Hitchhiker’s in its various incarnations has captured the imaginations of curious minds around the world . . .
+
+It's an ordinary Thursday lunchtime for Arthur Dent until his house gets demolished. The Earth follows shortly afterwards to make way for a new hyperspace express route, and his best friend has just announced that he's an alien. At this moment, they're hurtling through space with nothing but their towels and an innocuous-looking book inscribed, in large friendly letters, with the words: DON'T PANIC.
+
+The weekend has only just begun . . .
+
+Continue Arthur Dent's intergalactic adventures in the rest of the trilogy with five parts: The Restaurant at the End of the Universe, Life, the Universe and Everything, So Long, and Thanks for All the Fish, and Mostly Harmless.
+
+*****
+
+Praise for Douglas Adams:
+
+‘One of the world’s sanest, smartest, kindest, funniest voices’ – Independent on Sunday
+
+‘Magical . . . read this book’ – Sunday Express
+
+'A pleasure to read' - New York Times
+
+Publisher: Pan Macmillan
+ISBN: 9781529034523
+Number of pages: 224
+Weight: 158 g
+Dimensions: 197 x 130 x 15 mm"
+The Catcher in the Rye,J.D. Salinger,book,1951,1,13.06,https://cdn.waterstones.com/override/v1/large/9780/2419/9780241950432.jpg,"Witty, wise and bittersweet, The Catcher in the Rye is the ultimate American coming-of-age novel - a timeless classic.
+
+It's Christmas and Holden Caulfield has just been expelled from yet another school. Fleeing the crooks at Pencey Prep, he pinballs around New York City seeking solace in fleeting encounters - shooting the bull with strangers in dive hotels, wandering alone round Central Park, getting beaten up by pimps and cut down by erstwhile girlfriends.
+
+The city is beautiful and terrible, in all its neon loneliness and seedy glamour, its mingled sense of possibility and emptiness. Holden passes through it like a ghost, thinking always of his kid sister Phoebe, the only person who really understands him, and his determination to escape the phonies and find a life of true meaning.
+
+The Catcher in the Rye is an all-time classic coming-of-age story: an elegy to teenage alienation, capturing the deeply human need for connection and the bewildering sense of loss as we leave childhood behind.
+
+Publisher: Penguin Books Ltd
+ISBN: 9780241950432
+Number of pages: 240
+Weight: 170 g
+Dimensions: 196 x 128 x 14 mm"
+One Hundred Years of Solitude,Gabriel García Márquez,book,1967,1,15.65,https://cdn.waterstones.com/bookjackets/large/9780/2419/9780241968581.jpg,"'Many years later, as he faced the firing squad, Colonel Aureliano Buendía was to remember that distant afternoon when his father took him to discover ice'
+
+Gabriel García Márquez's great masterpiece is the story of seven generations of the Buendía family and of Macondo, the town they built. Though little more than a settlement surrounded by mountains, Macondo has its wars and disasters, even its wonders and its miracles. A microcosm of Columbian life, its secrets lie hidden, encoded in a book, and only Aureliano Buendía can fathom its mysteries and reveal its shrouded destiny.
+
+Blending political reality with magic realism, fantasy and comic invention, One Hundred Years of Solitude is one of the most daringly original works of the twentieth century.
+
+Publisher: Penguin Books Ltd
+ISBN: 9780241968581
+Number of pages: 432
+Weight: 299 g
+Dimensions: 198 x 130 x 25 mm"
+The Great Gatsby,F. Scott Fitzgerald,book,1925,1,30.72,https://cdn.waterstones.com/bookjackets/large/9780/1411/9780141182636.jpg,"Only Gatsby, the man who gives his name to this book, was exempt from my reaction – Gatsby who represented everything for which I have unaffected scorn. If personality is an unbroken series of successful gestures, then there was something gorgeous about him, some heightened sensitivity to the promises of life, as if he were related to one of those intricate machines that measure earthquakes ten thousand miles away.
+
+The Great Gatsby is F. Scott Fitzgerald's brilliant fable of the hedonistic excess and tragic reality of 1920s America.
+
+Young, handsome and fabulously rich, Jay Gatsby is the bright star of the Jazz Age, but as writer Nick Carraway is drawn into the decadent orbit of his Long Island mansion, where the party never seems to end, he finds himself faced by the mystery of Gatsby's origins and desires.
+
+Beneath the shimmering surface of his life, Gatsby is hiding a secret: a silent longing that can never be fulfilled. And soon, this destructive obsession will force his world to unravel.
+
+In The Great Gatsby, Fitzgerald brilliantly captures both the disillusionment of post-war America and the moral failure of a society obsessed with wealth and status. But he does more than render the essence of a particular time and place, for - in chronicling Gatsby's tragic pursuit of his dream - Fitzgerald re-creates the universal conflict between illusion and reality.
+
+Like Jay Gatsby, F. Scott Fitzgerald (1896-1940) has acquired a mythical status in American literary history, and his masterwork The Great Gatsby is considered by many to be the 'great American novel'. In 1920 he married Zelda Sayre, dubbed 'the first American Flapper', and their traumatic marriage and Zelda's gradual descent into insanity became the leading influence on his writing. As well as many short stories, Fitzgerald wrote five novels This Side of Paradise, The Great Gatsby, The Beautiful and the Damned, Tender is the Night and, incomplete at the time of his death, The Last Tycoon. After his death The New York Times said of him that 'in fact and in the literary sense he created a ""generation""'.
+
+This Penguin Classics edition is edited with an introduction and notes by Tony Tanner.
+
+Publisher: Penguin Books Ltd
+ISBN: 9780141182636
+Number of pages: 240
+Weight: 180 g
+Dimensions: 198 x 130 x 13 mm"
+In Cold Blood,Truman Capote,book,1966,1,15.84,https://cdn.waterstones.com/override/v1/large/9780/1411/9780141182575.jpg,"The chilling true crime 'non-fiction novel' that made Truman Capote's name, In Cold Blood is a seminal work of modern prose, a remarkable synthesis of journalistic skill and powerfully evocative narrative published in Penguin Modern Classics.
+
+Controversial and compelling, In Cold Blood reconstructs the murder in 1959 of a Kansas farmer, his wife and both their children. Truman Capote's comprehensive study of the killings and subsequent investigation explores the circumstances surrounding this terrible crime and the effect it had on those involved.
+
+At the centre of his study are the amoral young killers Perry Smith and Dick Hickcock, who, vividly drawn by Capote, are shown to be reprehensible yet entirely and frighteningly human.
+
+Truman Capote (1924-84) was born in New Orleans. He left school when he was fifteen and subsequently worked for The New Yorker, which provided his first - and last - regular job. He wrote both fiction and non-fiction - short stories, novels and novellas, travel writing, profiles, reportage, memoirs, plays and films; his other works include In Cold Blood (1965), Music for Chameleons (1980) and Answered Prayers (1986), all of which are published in Penguin Modern Classics.
+
+If you enjoyed In Cold Blood, you might like Jack Kerouac and William S. Burroughs' And the Hippos were Boiled in their Tanks, also available in Penguin Modern Classics.
+
+'It is the American dream turning into the American nightmare ...By juxtaposing and dovetailing the lives and values of the Clutters and those of the killers, Capote produces a stark image of the deep doubleness of American life ...a remarkable book' - Spectator
+
+Publisher: Penguin Books Ltd
+ISBN: 9780141182575
+Number of pages: 320
+Weight: 239 g
+Dimensions: 197 x 128 x 18 mm"
+The Handmaid's Tale,Margaret Atwood,book,1985,1,22.34,https://cdn.waterstones.com/override/v2/large/9780/0997/9780099740919.jpg,"Featured on Between the Covers Big Jubilee Read
+
+Utterly compelling and terrifyingly real, The Handmaid's Tale is a classic work of feminist fiction and a vivid dystopia that speaks afresh to every new generation of readers.
+
+A chair, a table, a lamp. Above, on the  white ceiling, a relief ornament in the shape of a wreath, and in the centre of it a blank space, plastered over, like the place in a face where the eye has been taken out. There must have been a chandelier, once. They’ve removed anything you could tie a rope to.
+
+Offred lives in The Republic of Gilead. To some, it is a utopian vision of the future, a place of safety, a place where everyone has a purpose, a function. But The Republic of Gilead offers Offred only one function: to breed.
+
+If she deviates, she will, like dissenters, be hanged at the wall or sent out to die slowly of radiation sickness. But even a repressive state cannot obliterate desire - neither Offred's nor that of the two men on which her future hangs.
+
+Brilliantly conceived and executed, The Handmaid's Tale is a bold evocation of twenty-first century America that gives full rein to Margaret Atwood's devastating irony, wit and astute perception.
+
+Publisher: Vintage Publishing
+ISBN: 9780099740919
+Number of pages: 320
+Weight: 226 g
+Dimensions: 197 x 128 x 21 mm"
+1984,George Orwell,book,1949,1,25.07,https://cdn.waterstones.com/bookjackets/large/9780/1411/9780141187761.jpg,"Who controls the past controls the future: who controls the present controls the past.
+
+As much a cultural and historical marker as an absorbing thriller, George Orwell’s 1984 changed and continues to change the way we think about the past and imagine the future. Perhaps the most pervasively influential novel of the twentieth century, 1984 resonates so completely have to become part of our commonplace lexicon, with words like doublethink and Big Brother (it was also Orwell who first coined the term ‘Cold War’) becoming part of the fabric of everyday life and speech.
+
+As the critic and author Jonathan Freedland wrote about 1984, ‘it has become a shorthand for totalitarianism, for the surveillance state, for the power of the mass media to manipulate public opinion, history and even the truth.’
+
+Yet before all of this, 1984 is also a brilliant, compelling, knife-edged thriller, dark with menace and nail-biting tension.
+
+1984 is the story of one man, who could be everyman, Winston Smith. Hidden away in the Record Department of the sprawling Ministry of Truth, Winston skilfully rewrites the past to suit the needs of the Party. Yet he inwardly rebels against the totalitarian world he lives in, which demands absolute obedience and controls him through the all-seeing telescreens and the watchful eye of Big Brother, symbolic head of the Party. In his longing for truth and liberty, Smith begins a secret love affair with a fellow-worker Julia, but soon discovers the true price of freedom is betrayal.
+
+1984 is a book that remains as fresh and sharply resonant now as when Orwell first published it in 1949. More than half a century on, it continues to be one of the foundation stones in any Waterstones bookshop; a book that deserves and demands to be read.
+
+‘It's not only journalists who should be in awe of George Orwell. Anyone embarking on a political thriller should look to 1984 – to see how it's done.’ – The Independent
+
+You can find many of the sites that inspired the works of George Orwell on a modern map, including the original inspiration for Animal Farm nestling up a quiet East Sussex road. These days known primarily for his disturbing and influential dystopian works, most notably 1984, Orwell was best regarded for most of his career as a journalist and critic and his fiction and many essays, are equally rooted in a very real-world view.
+
+Well-travelled and socially and politically engaged, Orwell drew from a life of wide experience in his writing; from times of abject poverty living as a tramp on the streets of London, to exploring social deprivation in northern England, to mingling with political elite and fighting in the Spanish Civil War. His best known works of non-fiction include: Down and Out in Paris and London, Keep the Aspidistra Flying, The Road to Wigan Pier and Homage to Catalonia.
+
+Publisher: Penguin Books Ltd
+ISBN: 9780141187761
+Number of pages: 384
+Weight: 281 g
+Dimensions: 198 x 129 x 21 mm"
+Animal Farm,George Orwell,book,1945,1,23.81,https://cdn.waterstones.com/bookjackets/medium/9780/1411/9780141182704.jpg,"All animals are equal - but some are more equal than others.
+
+When the downtrodden animals of Manor Farm overthrow their master Mr Jones and take over the farm themselves, they imagine it is the beginning of a life of freedom and equality. But gradually a cunning, ruthless elite among them, masterminded by the pigs Napoleon and Snowball, starts to take control.
+
+Soon the other animals discover that they are not all as equal as they thought, and find themselves hopelessly ensnared as one form of tyranny is replaced with another.
+
+'It is the history of a revolution that went wrong - and of the excellent excuses that were forthcoming at every step for the perversion of the original doctrine,' wrote Orwell for the first edition of Animal Farm in 1945.
+
+Orwell wrote the novel at the end of 1943, but it almost remained unpublished; its savage attack on Stalin, at that time Britain's ally, led to the book being refused by publisher after publisher. Orwell's simple, tragic fable has since become a world-famous classic.
+
+This Penguin Modern classics edition includes an introduction by Malcolm Bradbury.
+
+Publisher: Penguin Books Ltd
+ISBN: 9780141182704
+Number of pages: 144
+Weight: 114 g
+Dimensions: 198 x 129 x 8 mm"
+The God of Small Things,Arundhati Roy,book,1997,1,23.21,https://cdn.waterstones.com/bookjackets/medium/9780/0085/9780008556174.jpg,"Introducing the Collins Modern Classics, a series featuring some of the most significant books of recent times, books that shed light on the human experience – classics which will endure for generations to come.
+
+He folded his fear into a perfect rose. He held it out in the palm of his hand. She took it from him and put it in her hair
+
+Estha and Rahel, seven-year-old twins, are growing up amidst vats of banana jam, mountains of peppercorns and scenes of political turbulence in Kerala. But when their beautiful young cousin Sophie arrives, their world is irrevocably shaken. An illicit liaison and tragedies both accidental and intentional expose things that lurk unsaid, in a country drifting dangerously towards unrest.
+
+Winner of the Booker Prize, The God of Small Things is lush, lyrical and unnerving: a literary sensation and a modern classic.
+
+‘A voice of breathtaking beauty… a masterpiece’ Observer
+
+Publisher: HarperCollins Publishers
+ISBN: 9780008556174
+Number of pages: 368
+Weight: 250 g
+Dimensions: 198 x 129 x 23 mm"
+The Remains of the Day,Kazuo Ishiguro,book,1989,1,25.15,https://cdn.waterstones.com/bookjackets/large/9780/5712/9780571258246.jpg,"Winner of the Booker Prize 1989
+
+After all what can we ever gain in forever looking back and blaming ourselves if our lives have not turned out quite as we might have wished?
+
+In the summer of 1956, Stevens, the ageing butler of Darlington Hall, embarks on a leisurely holiday that will take him deep into the English countryside and into his past...
+
+A contemporary classic, The Remains of the Day is Nobel Prize-winner Kazuo Ishiguro's beautiful and haunting evocation of life between the wars in a Great English House, of lost causes and lost love.
+
+The Remains of the Day is now available as a Faber Modern Classics edition.
+Publisher: Faber & Faber
+ISBN: 9780571258246
+Number of pages: 272
+Weight: 228 g
+Dimensions: 198 x 129 x 16 mm
+Edition: Main"

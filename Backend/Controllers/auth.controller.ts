@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 async function verifyJWT(req, res) {
   try {
-    console.log("Headers:", req.headers); 
+    // console.log("Headers:", req.headers); 
     
     if (!req.headers.authorization) {
       console.log("No authorization header");
@@ -12,18 +12,18 @@ async function verifyJWT(req, res) {
     }
 
     const JWT = req.headers.authorization.split(" ")[1];
-    console.log("Extracted JWT:", JWT); 
+    // console.log("Extracted JWT:", JWT); 
     
     if (!JWT) {
-      console.log("No token after split");
+      // console.log("No token after split");
       res.status(401).json({ message: "No token provided" });
       return null;
     }
 
-    console.log("TOKEN_SECRET:", process.env.TOKEN_SECRET);
+    // console.log("TOKEN_SECRET:", process.env.TOKEN_SECRET);
     
     const decoded = jwt.verify(JWT, process.env.TOKEN_SECRET);
-    console.log("Decoded token:", decoded); 
+    // console.log("Decoded token:", decoded); 
     return decoded.id;
   } catch (err) {
     console.error("JWT Verification error:", err);
