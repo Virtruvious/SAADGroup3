@@ -1,7 +1,7 @@
 ---
 status: proposed
 date: 2024-12-10
-decision-makers: {list of decision makers}
+decision-makers: {Michael Ogunrinde, James Bateman, Cory-Newman}
 ---
 
 # Authentication and Authorisation Mechanisms for AML System
@@ -122,10 +122,24 @@ The decision will be validated through:
 ## More Information
 
 Implementation requirements:
-To implement this decision, we will need:
 
-1. Development team training on NextAuth.js
-2. Security review of planned implementation
-3. Documentation of role-based access control requirements
-4. Integration plan with backend services
-5. Testing strategy for authentication flows
+1. Environment variables:
+   * NEXTAUTH_SECRET for JWT signing
+   * API endpoint configurations
+2. Backend API endpoints:
+   * /auth/login for member authentication
+   * /auth/staff/login for staff authentication
+3. Session configuration:
+   * JWT strategy
+   * 30-minute timeout
+   * Custom session data structure
+4. Role-based access control implementation
+5. Error handling and logging strategy
+
+The system will need ongoing monitoring of:
+
+1. Authentication success/failure rates
+2. Session timeout effectiveness
+3. Role-based access control accuracy
+4. JWT token security
+5. API integration stability
