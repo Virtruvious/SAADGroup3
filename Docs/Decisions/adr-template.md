@@ -19,7 +19,6 @@ decision-makers: {Michael Ogunrinde, James Bateman, Cory-Newman}
 * {decision driver 3, it should integrate easily with the borrowing and notification systems.}
 * {decision driver 4, it must protect sensitive payment data from unauthorised access through encryption and access control}
 * {decision driver 5, it must be flexible to allow non-members to use some of the key functionalities of the website.}
-* … <!-- numbers of drivers can vary -->
 
 ## Considered Options
 
