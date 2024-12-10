@@ -33,6 +33,7 @@ require('./Routes/books.routes')(app);
 require('./Routes/wishList.routes')(app);
 require('./Routes/accountant.routes')(app);
 require('./Routes/purchaseMan.routes')(app);
+require('./Routes/aml-admin.routes')(app);
 
 const port = 8000;
 app.listen(port, () => {

@@ -75,6 +75,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ],
       },
     ],
+    admin: [
+      {
+        title: "Dashboard",
+        url: "#",
+        icon: Home,
+        isActive: true,
+      },
+      {
+        title: "AML Admin",
+        url: "#",
+        icon: Command,
+        items: [
+          { title: "Generate System Reports", url: "http://localhost:3000/staff/systemReports", icon: ClipboardList },
+          { title: "Monitor Performance", url: "http://localhost:3000/staff/monitorPerformance", icon: Truck },
+          { title: "Manage Permissions", url: "http://localhost:3000/staff/ManagePermissions", icon: BookOpen },
+        ],
+      },
+    ],
     guest: [
       {
         title: "Dashboard",

@@ -19,6 +19,64 @@ const subscriptionPlans = [
   ],
 ];
 
+const branch = [
+  [
+    "Central Library",
+    "123 Main St, Downtown",
+  ],
+  [
+    "North Branch",
+    "456 North St, Northtown",
+  ],
+  [
+    "East Branch",
+    "101 East St, Easttown",
+  ],
+];
+
+const vendors = [
+  [
+    "BookWorld Publishing",
+    "orders@bookworld.com",
+    "123-456-7890",
+    "123 Book St, Booktown",
+    "John Smith",
+    "books",
+  ],
+  [
+    "Digital Media Inc.",
+    "sales@digitalmedia.com",
+    "987-654-3210",
+    "456 Media St, Mediatown",
+    "Sarah Johnson",
+    "DVDs",
+  ],
+  [
+    "Academic Press Ltd",
+    "orders@academicpress.com",
+    "321-654-9870",
+    "789 Academic St, Academictown",
+    "Michael Brown",
+    "Journals",
+  ],
+  [
+    "Gaming Universe",
+    "supply@gaminguniv.com",
+    "456-789-1230",
+    "101 Game St, Gametown",
+    "Emily White",
+    "Games",
+  ],
+  [
+    "Sound & Vision Inc",
+    "orders@soundvision.com",
+    "654-789-1230",
+    "654 Audio Lane, Music City",
+    "David Black",
+    "Music",
+  ]
+]
+
 let processedBooks = [];
 (() => {
   const csvPath = path.resolve(__dirname, "./Data/dummyBooks.csv");
@@ -38,8 +96,9 @@ let processedBooks = [];
         availability: string;
         price: string;
         image: string;
+        description: string;
       }) => {
-        const { title, author, publication_year, availability, price, image } =
+        const { title, author, publication_year, availability, price, image, description } =
           record;
 
         const publicationDate = new Date(`${publication_year}-01-01`);
@@ -51,6 +110,7 @@ let processedBooks = [];
           availability,
           price,
           image,
+          description
         ]);
       }
     );
@@ -74,7 +134,7 @@ let con = mysql.createConnection({
 con.connect(function (err) {
   if (err) throw err;
   let sql =
-    "INSERT INTO media (title, author, media_type, publication_year, availability, price, image) VALUES ?";
+    "INSERT INTO media (title, author, media_type, publication_year, availability, price, image, description) VALUES ?";
   con.query(sql, [processedBooks], function (err, result) {
     if (err) throw err;
     console.log("Number of records inserted: " + result.affectedRows);
@@ -84,6 +144,27 @@ con.connect(function (err) {
   let planSQL =
     "INSERT INTO subscription_plans (name, price, duration, billing_frequency) VALUES ?";
   con.query(planSQL, [subscriptionPlans], function (err, result) {
+    if (err) throw err;
+    console.log("Number of records inserted: " + result.affectedRows);
+  });
+
+  let staffSubSQL = 
+    "INSERT INTO subscription (subscription_id, subscription_type, start_date, end_date, status) VALUES (?, ?, ?, ?, ?)";
+  con.query(staffSubSQL, [-1, "Staff", new Date(), new Date(), 0], function (err, result) {
+    if (err) throw err;
+    console.log("Number of records inserted: " + result.affectedRows);
+  });
+
+  let branchSQL =
+    "INSERT INTO branch (branch_name, location) VALUES ?";
+  con.query(branchSQL, [branch], function (err, result) {
+    if (err) throw err;
+    console.log("Number of records inserted: " + result.affectedRows);
+  });
+
+  let vendorSQL =
+    "INSERT INTO vendors (name, email, phone, address, contact_person, media_types) VALUES ?";
+  con.query(vendorSQL, [vendors], function (err, result) {
     if (err) throw err;
     console.log("Number of records inserted: " + result.affectedRows);
   });

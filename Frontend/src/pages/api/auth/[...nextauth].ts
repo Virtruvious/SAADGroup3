@@ -118,6 +118,9 @@ export const authOptions: AuthOptions = {
             else if(user.email.includes("PM"))
             {
               user.role = "purchase_manager";
+            } else if (user.email.includes("AM"))
+            {
+              user.role = "admin";
             }
 
             console.log("Logged in staff:", user);

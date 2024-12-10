@@ -1,0 +1,19 @@
+meta {
+  name: System Report
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8000/admin/getReport?timeframe=all
+  body: none
+  auth: bearer
+}
+
+params:query {
+  timeframe: all
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjgsImVtYWlsIjoiam9obi5kb2VBTUBnbWFpbC5jb20iLCJyb2xlIjoic3RhZmYiLCJpYXQiOjE3MzM4NDUyNjAsImV4cCI6MTczMzg0NzA2MH0.vp3OIka-MTWAgEDw1jiIZPapfxFCy9AOweBvfLFcGF0
+}
