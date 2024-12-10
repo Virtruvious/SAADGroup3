@@ -1,7 +1,7 @@
 ---
 status: proposed
 date: 2024-12-10
-decision-makers: {list of decision makers}
+decision-makers: {Michael Ogunrinde, James Bateman, Cory-Newman}
 ---
 
 # Authentication and Authorisation Mechanisms for AML System
