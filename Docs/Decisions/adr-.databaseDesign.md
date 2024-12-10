@@ -1,82 +1,123 @@
 ---
-# These are optional metadata elements. Feel free to remove any of them.
-status: "proposed"
-date: 2024-12-2 when the decision was last updated
-decision-makers: Michael, James, Cory
+status: proposed
+date: 2024-12-02
+decision-makers: Michael Ogunrinde, James Bateman, Cory-Newman
 ---
 
-# Database design for AML membership and payment management
+# Database Design for AML Membership and Payment Management
 
 ## Context and Problem Statement
 
-Our AML system requires a robust database design to manage membership and payments information effectively. Membership details must include registration, subscription types and statuses, while payments management must track transactions, amounts, due dates and an adjustement tool to amend underpaid or overpaid payements.Without a well-strctured database, the system may face issues like inconsistent membership statuses, errors in payment records, and difficulties generating reports for accountants
+The AML system requires a robust database design to manage membership and payments information effectively. Membership details must include registration, subscription types and statuses, while payments management must track transactions, amounts, due dates and an adjustment tool to amend underpaid or overpaid payments. Without a well-structured database, the system may face issues like inconsistent membership statuses, errors in payment records, and difficulties generating reports for accountants.
 
-<!-- This is an optional element. Feel free to remove. -->
 ## Decision Drivers
 
-* decision driver 1, The database must support scaling to accomodate future growth 
-* decision driver 2, it must ensure high data integrity and minimal chances errors in membership or payemnt records
-* decision driver 3, it should integrate easily with the borrowing and notification systems.
-* decision driver 4, it must protect sensitive payment data from unauthorised access through encryption and access control
-* decision driver 5, it must be flexible to allow non-members to use some of the key functionalities of the website.
+* The database must support scaling to accommodate future growth
+* Must ensure high data integrity and minimal chances of errors in membership or payment records
+* Should integrate easily with the borrowing and notification systems
+* Must protect sensitive payment data from unauthorized access through encryption and access control
+* Must be flexible to allow non-members to use some of the key functionalities of the website
 
 ## Considered Options
 
-* title of option 1, Use a relational database management system like MySQL or PostgreSQL, which can use a relational schema with auxiliary tables for flexibility.
-* title of option 2, Seperate tables for membership and payment information, linked by a foreign key in the membership table for example "membership_id".
-* title of option 3, Combine membership and payment information in a single table, with a column for each membership and payment attribute.
-* title of option 4, Use a NoSQL database like MongoDB, which can store data in a flexible, schema-less format.
-* title of option 5, Use a hybrid approach, with a relational database for membership information and a NoSQL database for payment information.
-* … <!-- numbers of options can vary -->
+* Relational database management system (MySQL/PostgreSQL)
+* Separate tables for membership and payment information
+* Combined single table approach
+* NoSQL database (MongoDB)
+* Hybrid approach (Relational + NoSQL)
 
 ## Decision Outcome
 
-Chosen option: "Separate tables for membership and payment information, linked by a foreign key. (title of option 1/title of option 2)", because justification: This approach ensures moduloarity, making it easier to scale and maintain. Payement records are isolated from membership details for better perfomance when querying large transaction datasets, as well as enforcing security. This design also allows for:
+Chosen option: "Separate tables for membership and payment information with RDBMS", because:
 
-1. indenpendant scaling of membership and payment tables to handle increasing records.
-2. clear seperation reduces risk of data corruption and simplifies validation.
-3. sensitive payment data is isolated, allowing focused access control and encryption strategies.
+1. Ensures modularity, making it easier to scale and maintain
+2. Payment records are isolated from membership details for better performance when querying large transaction datasets
+3. Enforces better security through data isolation
+4. Allows for independent scaling of membership and payment tables
+5. Clear separation reduces risk of data corruption and simplifies validation
+6. Sensitive payment data is isolated, allowing focused access control and encryption strategies
+7. Team's familiarity with relational database schemas ensures easier implementation and maintenance
 
-Although other options may also staisfy some decision drivers, this option performs best overall by meeting scalability, maintainability, and integration requirements. The trade-offs of additional complexity in queries and joins are considered acceptable given the long-term benefits. Furthermore, our team is familiar with relational database schemas, ensuring easier implementation and maintenance.
+### Planned Implementation Details
 
-<!-- This is an optional element. Feel free to remove. -->
+1. Database Structure:
+   * Separate membership table for user details
+   * Separate payment table linked by foreign key
+   * Auxiliary tables for subscription types and status
+   * Clear indexing strategy for performance
+
+2. Security Measures:
+   * Encryption for sensitive payment data
+   * Role-based access control
+   * Audit logging for sensitive operations
+
+3. Performance Optimization:
+   * Proper indexing strategy
+   * Efficient query design
+   * Regular maintenance plans
+
 ### Consequences
 
-* Good, because positive consequence, allows for efficent quries and modular design
-* Bad, because negative consequence, slightly increases complexitity when joining tables for cross-references
-* … <!-- numbers of consequences can vary -->
+* Good, because it allows for efficient queries and modular design
+* Good, because it provides clear separation of concerns
+* Good, because it enables focused security measures for sensitive data
+* Bad, because it slightly increases complexity when joining tables
+* Bad, because it requires careful index management
 
-<!-- This is an optional element. Feel free to remove. -->
 ### Confirmation
 
- We will confirm this decision by implementing the database schema and testing it with a small dataset. The schema will be reviewed with the team to ensure it meets the requirements and is understood by all members. Queries for common tasks will be benchmarked to ensure optimal performance under load. Additionally, the system will be monitored for performance issues, and the schema will be adjusted as needed.
+The decision will be validated through:
 
-<!-- This is an optional element. Feel free to remove. -->
+1. Implementation of database schema with test dataset
+2. Team review of schema design
+3. Performance testing of common queries
+4. Security audit of data access patterns
+5. Integration testing with other system components
+
 ## Pros and Cons of the Options
 
-### Relational database (General schema)
+### Relational Database (MySQL/PostgreSQL)
 
-<!-- This is an optional element. Feel free to remove. -->
-example | description | pointer to more information | …
+* Good, because of clear separation of concerns and efficient queries
+* Good, because of strong data integrity through normalization
+* Good, because of mature ecosystem and tools
+* Bad, because of potentially complex joins for related data
+* Bad, because of schema rigidity requiring careful planning
 
-* Good, because clear seperation of concerns, allows for efficent quries and modular design
-* Good, because clear structure and normalization principles ensure data integrity. 
-<!-- use "neutral" if the given argument weights neither for good nor bad -->
-* Neutral, because requires schema adjustments for scalability and flexibility.
-* Bad, because may result in overly complex joins for highly interconnected data.
-* … <!-- numbers of pros and cons can vary -->
+### NoSQL Database (MongoDB)
 
-### NoSQL database (MongoDB)
+* Good, because of high flexibility for changing requirements
+* Good, because of excellent scalability for large datasets
+* Bad, because of potential consistency issues
+* Bad, because of higher learning curve for the team
+* Bad, because of poor fit for relational data
 
-example | description | pointer to more information | …
+### Hybrid Approach
 
-* Good, because highly flexible and suitable for unstructured or rapidly changing data.
-* Good, because excellent scalability for massive datasets.
-* Neutral, because poor fit for applications requiring complex relationships between entities.
-* Bad, because higher learning curve for developers accustomed to relational databases
-* …
+* Good, because of flexibility in data storage
+* Good, because of optimized storage per data type
+* Bad, because of increased system complexity
+* Bad, because of maintenance overhead
+* Bad, because of potential synchronization issues
 
-<!-- This is an optional element. Feel free to remove. -->
 ## More Information
 
-Additional evidence and validation for this decision will include an ERD (Entity-Relationship Diagram) and test results from a sample implementation. Team agreement has been documented, and the design will be revisited periodically to ensure it continues to meet the system’s needs. Links to other resources, such as schema documentation and meeting notes, will also be maintained
+Implementation requirements:
+
+1. Development of detailed ERD
+2. Creation of migration scripts
+3. Documentation of:
+   * Schema design
+   * Access patterns
+   * Security measures
+   * Backup procedures
+4. Performance benchmarking plan
+5. Monitoring strategy
+
+Next steps:
+
+1. Finalize ERD design
+2. Create test implementation
+3. Develop migration strategy
+4. Set up monitoring tools
+5. Document maintenance procedures
