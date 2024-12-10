@@ -43,22 +43,22 @@ Chosen option: "NextAuth.js with dual credential providers", because:
 ### Specific Implementation Details
 
 1. Two separate credential providers:
-   *User Credentials: Handles regular member authentication
-   *Staff Credentials: Handles staff authentication with role verification
+   * User Credentials: Handles regular member authentication
+   * Staff Credentials: Handles staff authentication with role verification
 
 2. Role-based authorisation:
-   *Member: Regular user access
-   *Staff: Base staff access
-   *Admin: Full administrative access (AM email prefix)
-   *Accountant: Financial access (AC email prefix)
-   *Purchase Manager: Purchasing access (PM email prefix)
+   * Member: Regular user access
+   * Staff: Base staff access
+   * Admin: Full administrative access (AM email prefix)
+   * Accountant: Financial access (AC email prefix)
+   * Purchase Manager: Purchasing access (PM email prefix)
 
 3. Security measures:
-   *JWT-based session management
-   *30-minute session timeout
-   *Secure token handling
-   *Custom error logging
-   *Environment-based secrets
+   * JWT-based session management
+   * 30-minute session timeout
+   * Secure token handling
+   * Custom error logging
+   * Environment-based secrets
 
 ### Consequences
 
