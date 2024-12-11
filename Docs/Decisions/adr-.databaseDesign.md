@@ -51,7 +51,7 @@ Chosen option: "Separate tables for membership and payment information with RDBM
    * Role-based access control
    * Audit logging for sensitive operations
 
-3. Performance Optimization:
+3. Performance Optimisation:
    * Proper indexing strategy
    * Efficient query design
    * Regular maintenance plans
@@ -79,7 +79,7 @@ The decision will be validated through:
 ### Relational Database (MySQL/PostgreSQL)
 
 * Good, because of clear separation of concerns and efficient queries
-* Good, because of strong data integrity through normalization
+* Good, because of strong data integrity through normalisation
 * Good, because of mature ecosystem and tools
 * Bad, because of potentially complex joins for related data
 * Bad, because of schema rigidity requiring careful planning
@@ -98,7 +98,7 @@ The decision will be validated through:
 * Good, because of optimized storage per data type
 * Bad, because of increased system complexity
 * Bad, because of maintenance overhead
-* Bad, because of potential synchronization issues
+* Bad, because of potential synchronisation issues
 
 ## More Information
 
