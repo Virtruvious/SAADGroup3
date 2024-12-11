@@ -1,7 +1,7 @@
 ---
 status: proposed
 date: 2024-12-11
-decision-makers: Michael, James, Cory
+decision-makers: Michael Ogunrinde, James Bateman, Cory-Newman
 ---
 
 # Local Development and Collaboration Strategy for AML System
