@@ -1,6 +1,6 @@
 # Bug ID
 
-Id Number - 1 
+Id Number - 4
 Title - staff dashboard 
 Reporter - James B 
 Submit date - 17 / 12 / 2024
