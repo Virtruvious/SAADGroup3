@@ -80,7 +80,7 @@ export default function CreatePurchaseOrderPage() {
     fetchInitialData();
   }, [status]);
 
-  // Fetch vendor media only when vendor is selected
+  // fetch vendor media only when vendor is selected
   useEffect(() => {
     if (!selectedVendor) return;
 
@@ -446,7 +446,7 @@ export default function CreatePurchaseOrderPage() {
                   onChange={(e) =>
                     setManualItem({
                       ...manualItem,
-                      price: e.target.value, // Keep as string in state for controlled input
+                      price: e.target.value, 
                     })
                   }
                 />

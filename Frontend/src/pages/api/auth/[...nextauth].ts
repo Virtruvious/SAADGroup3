@@ -26,7 +26,7 @@ export const authOptions: AuthOptions = {
 
         try {
           const res = await axios.post(
-            "http://localhost:8000/auth/login", // Your API endpoint for login
+            "http://localhost:8000/auth/login", 
             {
               email: credentials.email,
               password: credentials.password,

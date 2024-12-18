@@ -85,7 +85,7 @@ const CatalogPage: React.FC = () => {
                 setNewBooks(newBooksData.books);
                 setRandomBooks(randomBooksData.books);
                 
-                // You might want to get recently viewed books from localStorage or another API endpoint
+                
                 // This is just a placeholder using random books for demonstration
                 setRecentlyViewed(randomBooksData.books.slice(0, 5));
             } catch (error) {

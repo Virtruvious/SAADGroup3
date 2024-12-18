@@ -252,7 +252,7 @@ export default function TrackingOrdersPage() {
               <TableBody>
                 {filteredOrders.map(
                   (
-                    order // Change this from orders to filteredOrders
+                    order 
                   ) => (
                     <TableRow key={order.tracking_id}>
                       <TableCell>{order.order_id}</TableCell>

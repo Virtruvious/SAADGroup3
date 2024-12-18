@@ -70,10 +70,10 @@ const FinancialReports: React.FC = () => {
         Authorization: `Bearer ${session?.jwt}`,
       };
 
-      console.log("Current timeFrame:", timeFrame); // Add this
+      console.log("Current timeFrame:", timeFrame); 
 
       const analyticsUrl = `${API_BASE_URL}/accountant/payments/extendedAnalytics?timeFrame=${timeFrame}`;
-      console.log("Analytics URL:", analyticsUrl); // Add this
+      console.log("Analytics URL:", analyticsUrl); 
 
       const [analyticsRes, methodsRes, balancesRes] = await Promise.all([
         axios.get(analyticsUrl, { headers }),
@@ -89,8 +89,8 @@ const FinancialReports: React.FC = () => {
       console.log("Raw Analytics Response:", analyticsRes.data);
       setAnalytics(analyticsRes.data.analytics);
 
-      console.log("Analytics Response:", analyticsRes.data); // Add this log
-      console.log("Methods Response:", methodsRes.data); // Add this log
+      console.log("Analytics Response:", analyticsRes.data); 
+      console.log("Methods Response:", methodsRes.data); 
       setPaymentMethods(methodsRes.data.methods);
       setOutstandingBalances(balancesRes.data.balances);
       setLoading(false);
