@@ -70,8 +70,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           { title: "Create Purchase Order", url: "http://localhost:3000/staff/CreateOrder", icon: ClipboardList },
           { title: "Track Orders", url: "http://localhost:3000/staff/Tracking", icon: Truck },
-          { title: "Vendor Catalogue", url: "#", icon: BookOpen },
-          { title: "Delivery Updates", url: "#", icon: FileText },
         ],
       },
     ],
