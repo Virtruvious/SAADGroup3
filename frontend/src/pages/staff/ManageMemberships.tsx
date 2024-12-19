@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StaffLayout from "@/layouts/StaffLayout";
 import StaffHeader from "@/components/Staff-Header";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {
   Select,

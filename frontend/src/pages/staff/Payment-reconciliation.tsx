@@ -98,10 +98,11 @@ export const PaymentReconciliation = () => {
   if (error) return (
     <StaffLayout>
       <StaffHeader title={"Payment Reconciliation"}/>
-      <div className="flex justify-center items-center h-64">
-        Loading members...
+      <div className="flex justify-center items-center h-64 text-red-500">
+        {error}
       </div>
-    </StaffLayout>);
+    </StaffLayout>
+  );
 
   return (
     <StaffLayout>

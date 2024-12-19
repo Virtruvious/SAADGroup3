@@ -3,7 +3,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import StaffHeader from "@/components/Staff-Header";
 import { useSession } from "next-auth/react";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface StaffLayoutProps {
   children: React.ReactNode;

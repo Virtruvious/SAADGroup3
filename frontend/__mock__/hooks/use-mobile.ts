@@ -1,0 +1,1 @@
+export const useMobile = jest.fn().mockReturnValue(false);
