@@ -68,6 +68,7 @@ const ManageMemberships: React.FC = () => {
         axios.get(`${API_BASE_URL}/accountant/members`, { headers }),
         axios.get(`${API_BASE_URL}/accountant/subscription-plans`, { headers })
       ]);
+      
 
       setMembers(membersRes.data.members);
       setSubscriptionPlans(plansRes.data.plans);
